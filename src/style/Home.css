@@ -1,0 +1,14 @@
+.homePage {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  border: 1px solid black;
+}
+
+.farmList {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+}

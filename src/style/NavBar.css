@@ -1,0 +1,33 @@
+.navbar {
+  border-bottom: 1px solid grey;
+  background: #002a31;
+  padding: 10px;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  /* border: 1px solid black; */
+  font-weight: bold;
+  flex: 1;
+  align-self: center;
+}
+
+.links {
+  flex: 1;
+}
+
+.links_list {
+  /* border: 1px solid black; */
+  font-size: 1.5rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.links_list-item {
+  /* border: 1px solid blue; */
+
+}

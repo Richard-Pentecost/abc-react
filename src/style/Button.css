@@ -1,0 +1,23 @@
+.btn {
+  width: 100%;
+  color: #fafbfc;
+  background-color: #16aa56;
+  border-radius: 5px;
+  height: 40px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  vertical-align: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background: #002a31;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+
