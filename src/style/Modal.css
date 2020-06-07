@@ -1,0 +1,28 @@
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalForm-container {
+  background-color: #fff;
+  width: 50%;
+  margin: 300px auto;
+  padding: 16px 24px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.modalForm-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.modalForm-btnContainer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+}

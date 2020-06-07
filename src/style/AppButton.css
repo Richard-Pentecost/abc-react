@@ -1,0 +1,61 @@
+.appBtn {
+  background-color: #fafbfc;
+  border-radius: 5px;
+  height: 30px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.appBtn-green {
+  color: #16aa56; 
+  border: 1px solid #16aa56;
+  opacity: 0.7;
+}
+
+.appBtn-red {
+  border: 1px solid #f26c4f;
+  color: #f26c4f;
+  opacity: 0.7
+}
+
+.appBtn-small {
+  height: 20px;
+  font-size: 12px;
+  transition: all 0.1s ease-in-out;
+}
+
+.appBtn-medium {
+  height: 30px;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.appBtn-icon {
+  padding: 0 5px;
+}
+
+.appBtn-text {
+  padding: 0 5px;
+  padding-bottom: 1px;
+}
+
+.appBtn-green:hover {
+  /* border: 1px solid #002a31;
+  color: #002a31; */
+  opacity: 1;
+}
+
+.appBtn-red:hover {
+  opacity: 1;
+}
+
+.appBtn:focus {
+  outline: none;
+}

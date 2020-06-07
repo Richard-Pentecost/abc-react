@@ -1,62 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Input from './Input';
 import Button from './Button';
-import axios from 'axios';
+import Alert from './Alert';
+import * as actions from '../store/actions';
 import '../style/Login.css';
-import tokenManager from '../utils/token-manager';
-
-const URL = 'http://localhost:3000/login';
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-    errorMessage: '',
-  };
 
-  handleLogin = async (event) => {
+  onLoginUser = (event) => {
     event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ errorMessage: 'Email and password required' });
-    } else {
-      const { email, password } = this.state;
-      try {
-        const res = await axios.post(URL, { email, password });
-        tokenManager.setToken(res.data.token);
-        this.props.onLogin();
-        this.props.history.push('/home');
-      } catch (err) {
-        this.setState({ errorMessage: err.response.data.error });
-      }
-    }
+    const { email, password, history } = this.props;
+    this.props.handleLoginUser(email, password, history);
   };
 
-  handleInputChange = (event) => {
-    if (this.state.errorMessage) {
-      this.setState({ errorMessage: '' });
-    }
-    const { name, value } = event.target;
-    this.setState({ [name] : value });
-  }
+  onEmailChange = event => {
+    const { value } = event.target;
+    this.props.handleEmailChange(value);
+  };
+
+  onPasswordChange = event => {
+    const { value } = event.target;
+    this.props.handlePasswordChange(value);
+  };
 
   render() {
-    const { email, password, errorMessage } = this.state;
+    const { email, password, errorMessage } = this.props;
+
     let error;
 
     if (errorMessage) {
       error = (
-        <div className='error'>{errorMessage}</div>
+        // <div className='error'>{errorMessage}</div>
+        <Alert message={errorMessage}/>
       );
     } else {
       error = null;
     }
-
+    
     return (
       <div className='form'>
-        <form onSubmit={this.handleLogin}>
+        <form onSubmit={this.onLoginUser}>
           <Input
             input={email}
-            inputChange={this.handleInputChange} 
+            inputChange={this.onEmailChange} 
             label='Email'
             name='email'
             type="email"
@@ -64,7 +51,7 @@ class Login extends Component {
           />
           <Input
             input={password}
-            inputChange={this.handleInputChange}
+            inputChange={this.onPasswordChange}
             label='Password'
             name='password'
             type='password'
@@ -78,4 +65,20 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    email: state.auth.email,
+    password: state.auth.password,
+    errorMessage: state.auth.errorMessage,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleEmailChange: text => dispatch(actions.emailChanged(text)),
+    handlePasswordChange: text => dispatch(actions.passwordChanged(text)),
+    handleLoginUser: (email, password, history) => dispatch(actions.loginUser({ email, password }, history)),
+  };
+};
+// export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

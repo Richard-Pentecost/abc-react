@@ -1,7 +1,7 @@
-.form {
+.formContainer {
   background-color: #fff;
-  width: 40%;
+  width: 50%;
   margin: 50px auto;
-  padding: 24px 16px;
+  padding: 16px 24px;
   border-radius: 3px;
-};
+}

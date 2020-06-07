@@ -1,0 +1,32 @@
+.searchBar-container {
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+}
+.searchBar-input {
+  width: 100%;
+  border: 1px solid #d7dbdb;
+  border-right: none;
+  padding: 5px;
+  border-radius: 2px 0 0 2px;
+  font-size: 14px;
+}
+.searchBar-input:focus{
+  outline: none;
+  color: inherit;
+}
+.searchBar-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d7dbdb;
+  background: #d7dbdb;
+  text-align: center;
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: #464c4f;
+}
+
+.searchBar-btn:focus {
+  outline: none;
+}

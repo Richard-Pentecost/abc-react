@@ -1,7 +1,8 @@
 .farmCard {
   border: 1px solid #ccc;
   cursor: pointer;
-  width: 20%;
+  width: 30%;
+  min-width: 250px;
   padding: 1rem;
   margin: .5rem;
   border-radius: 2px;
@@ -27,4 +28,32 @@
 
 .farmInfo-item_text {
   margin-left: .5rem;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  color: #0e67ec;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.btn-delete {
+  border: 1px solid#3f4a51;
+  color: #f26c4f;
+  height: 24px;
+  width: 24px;
+  font-size: 14px;
+  border-radius: 100%;
+  text-align: center;
 }
