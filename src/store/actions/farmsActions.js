@@ -37,7 +37,6 @@ export const farmUpdate = ({ prop, value }) => {
 };
 
 export const initFarms = (search = '') => {
-  console.log(search);
   return async (dispatch) => {
     try {
       const response = await axios.get(`${URL}/${search}`);

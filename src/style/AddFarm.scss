@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+.addFarm {
+  width: 40rem;
+  margin: 5rem auto;
+  background: $color-white;
+  padding: 1rem;
+  border-radius: 3px;
+
+  @media only screen and (min-width: $bp-large) {
+    width: 50rem
+  }
+};

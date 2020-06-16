@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import qs from 'qs';
+// import qs from 'qs';
 import Spinner from './Spinner';
 import Table from './Table';
 import Modal from './Modal';
 import AppButton from './AppButton';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 import * as actions from '../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/Farm.css';
@@ -65,29 +65,7 @@ class Farm extends Component{
       // call API with redux
     };
   };
-
-  handleSearch = searchValue => {
-    // console.log(searchValue);
-    const url = this.buildQueryString('query', { title: { $regex: searchValue }});
-    this.props.history.push(url);
-  };
-
-  buildQueryString = (operation, valueObj) => {
-    const { search } = this.props.location;
-    const currentQueryParams = qs.parse(search, { ignoreQueryPrefix: true });
-    console.log('currentQueryParams', currentQueryParams);
-    const newQueryParams = {
-      ...currentQueryParams,
-      [operation]: JSON.stringify({
-        ...JSON.parse(currentQueryParams[operation] || '{}'),
-        ...valueObj,
-      }),
-    };
-    console.log('newQueryParams', newQueryParams);
-    console.log(qs.stringify(newQueryParams, {addQueryPrefix: true, encode: false}));
-    return qs.stringify(newQueryParams, { addQueryPrefix: true, encode: false });
-  };
-
+  
   render() {
     const selectedFarm = this.selectedFarm();
     let farm = <Spinner />;
@@ -145,7 +123,7 @@ class Farm extends Component{
     if (this.state.showModal) {
       modal = (
         <Modal 
-          displayText='Are you sure you want to delete the data'
+          displayText='Are you sure you want to delete data?'
           deleteHandler={this.handleDelete}
           cancelHandler={this.hideModal}
         />
@@ -156,7 +134,6 @@ class Farm extends Component{
       <div className='farmContainer'>
         {farm}
         {modal}
-        <SearchBar searchHandler={this.handleSearch} />
       </div>
     )
   }

@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import '../style/Home.css';
+import '../style/Home.scss';
 import FarmCard from './FarmCard';
 import SideBar from './SideBar';
 import Spinner from './Spinner';
 import Modal from './Modal';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions';
-import axios from 'axios';
 import qs from 'qs';
-
-
-const URL = 'http://localhost:3000/farms';
 
 class Home extends Component {
   state = { 
@@ -24,14 +20,12 @@ class Home extends Component {
 
   componentDidUpdate(prevProps) {
     const { search } = this.props.location;
-    // console.log(search);
     if (prevProps.location.search !== search) {
       this.props.onInitFarms(search);
     };
   };
 
   handleSearch = searchValue => {
-    // console.log('[handleSearch]', searchValue);
     const url = this.buildQueryString('query', { searchString: searchValue });
     this.props.history.push(url);
   };
@@ -72,18 +66,18 @@ class Home extends Component {
 
 
   render() {
-    // console.log(this.props);
     const { farms } = this.props;
     let farmList = <Spinner />;
     if (farms) {
       farmList = farms.map(farm => {
         return (
-          <FarmCard 
-            key={farm.farmName} 
-            farm={farm} 
-            clickHandler={() => this.handleClick(farm._id)} 
-            deleteHandler={() => this.openModal(farm._id)}
-          />
+          <div className='farmList__card' key={farm.farmName} >
+            <FarmCard 
+              farm={farm} 
+              clickHandler={() => this.handleClick(farm._id)} 
+              deleteHandler={() => this.openModal(farm._id)}
+            />
+          </div>
         );
       });
     };

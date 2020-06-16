@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FarmForm from './FarmForm';
 import * as actions from '../store/actions';
-import '../style/AddFarm.css';
+import '../style/AddFarm.scss';
 
 
 class AddFarm extends Component {

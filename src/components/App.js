@@ -15,7 +15,7 @@ import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faPhoneSquare, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard, faEdit, faTrashAlt, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import '../style/App.css';
+import '../style/App.scss';
 
 library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt);
 

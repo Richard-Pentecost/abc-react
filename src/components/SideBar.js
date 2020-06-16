@@ -13,7 +13,6 @@ class SideBar extends Component {
   };
 
   render() {
-    const { query } = this.props;
     return (
       <div className='sideBar-container'>
         <SearchBar searchHandler={this.props.searchHandler} />

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import FarmForm from './FarmForm';
 import * as actions from '../store/actions';
-import '../style/AddFarm.css';
+import '../style/AddFarm.scss';
 
 // const URL = 'http://localhost:3000/farms';
 

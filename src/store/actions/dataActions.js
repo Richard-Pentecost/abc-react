@@ -48,7 +48,6 @@ export const initData = id => {
 export const addData = (data, id) => {
   return async dispatch => {
     try {
-      console.log(data);
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.post(`${URL}/${id}/data`, data, axiosHeaders);
       dispatch(clearDataForm())
@@ -62,7 +61,6 @@ export const addData = (data, id) => {
 export const editData = (data, farmId, dataId) => {
   return async dispatch => {
     try {
-      console.log(data);
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${farmId}/data/${dataId}`, data, axiosHeaders);
       dispatch(initData(farmId));

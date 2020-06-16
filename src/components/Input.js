@@ -1,13 +1,13 @@
 import React from 'react';
-import '../style/Input.css';
+import '../style/Input.scss';
 
 const Input = (props) => {
   const { label, type, name, input, inputChange } = props;
   return (
-    <div className="input-field">
-      <label className='label'>{label}:</label>
+    <div className="inputForm">
+      <label className='inputForm__label'>{label}:</label>
       <input 
-        className='input'
+        className='inputForm__input'
         type={type}
         name={name}
         value={input}

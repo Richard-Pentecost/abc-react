@@ -4,7 +4,7 @@ import Input from './Input';
 import Button from './Button';
 import Alert from './Alert';
 import * as actions from '../store/actions';
-import '../style/Login.css';
+import '../style/Login.scss';
 
 class Login extends Component {
 

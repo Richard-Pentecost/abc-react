@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AppButton from './AppButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../style/FarmCard.css';
+import '../style/FarmCard.scss';
 
 const FarmCard = ({ farm, clickHandler, deleteHandler }) => {
   
@@ -13,31 +13,31 @@ const FarmCard = ({ farm, clickHandler, deleteHandler }) => {
 
   return (
     <div className='farmCard' onClick={clickHandler}>
-      <div className='farmName'>
+      <div className='farmCard__header'>
         {farm.farmName}
       </div>
-      <div className='farmInfo'>
-        <div className="farmInfo-item">
+      <div className='farmCard__info'>
+        <div className="farmCard__item">
           <span><FontAwesomeIcon icon={[ 'far', 'address-card' ]} /></span>
-          <span className="farmInfo-item_text">{farm.postcode}</span>
+          <span className="farmCard__text">{farm.postcode}</span>
         </div>
-        <div className="farmInfo-item">
+        <div className="farmCard__item">
           <span><FontAwesomeIcon icon={'user'} /></span>
-          <span className="farmInfo-item_text">{farm.contactName}</span>
+          <span className="farmCard__text">{farm.contactName}</span>
         </div>
-        <div className="farmInfo-item">
+        <div className="farmCard__item">
           <span ><FontAwesomeIcon icon={'phone-square'} /></span>
-          <span className="farmInfo-item_text">{farm.contactNumber}</span>
+          <span className="farmCard__text">{farm.contactNumber}</span>
         </div>
       </div>
-      <div className='btn-container'>
+      <div className='farmCard__btnContainer'>
         <Link 
           to={{
             pathname: `farms/${farm._id}/edit`,
             aboutProp: { selectedFarm: farm },
           }}
           onClick={event => event.stopPropagation()}
-          className='link'
+          className='farmCard__link'
         >
           Edit Farm Details
         </Link>
