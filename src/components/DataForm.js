@@ -3,7 +3,7 @@ import moment from 'moment';
 import AppButton from './AppButton';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../style/DataForm.css';
+import '../style/DataForm.scss';
 
 const DataForm = props => {
   const { 
@@ -17,20 +17,20 @@ const DataForm = props => {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <div className='inputContainer'>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Date:</label>
+      <div className='dataForm'>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Date:</label>
           <DatePicker 
             name='date'
             selected={moment(data.date).toDate()}
             dateFormat='dd/MM/yyyy'
             onChange={handleDateChange}
-            className='dataInput'
+            className='dataInput__input'
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Product:</label>
-          <select name='product' value={data.product} onChange={handleInputChange} className='dataInput'>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Product:</label>
+          <select name='product' value={data.product} onChange={handleInputChange} className='dataInput__input'>
             <option value='blank'></option>
             <option value='SFW Acid'>SFW Acid</option>
             <option value='Chlorine'>Chlorine</option>
@@ -38,50 +38,50 @@ const DataForm = props => {
             <option value='Acid2'>Acid2</option>
           </select>
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Quantity:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Quantity:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='quantity'
             value={data.quantity}
             onChange={handleInputChange}  
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Meter Reading:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Meter Reading:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='meterReading'
             value={data.meterReading}
             onChange={handleInputChange}  
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Float Before Delivery:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Float Before Delivery:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='initialFloat'
             value={data.initialFloat}
             onChange={handleInputChange}  
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Water Usage:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Water Usage:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='waterUsage'
             value={data.waterUsage}
             onChange={handleInputChange}  
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Pump Dial:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Pump Dial:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='pumpDial'
             value={data.pumpDial}
@@ -89,20 +89,20 @@ const DataForm = props => {
             step='0.1'
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Float:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Float:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='float'
             value={data.float}
             onChange={handleInputChange}  
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Reading:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Reading:</label>
           <input 
-            className='dataInput'
+            className='dataInput__input'
             type='number'
             name='reading'
             value={data.reading}
@@ -110,10 +110,10 @@ const DataForm = props => {
             step='0.1'
           />
         </div>
-        <div className='dataInputContainer'>
-          <label className='inputLabel'>Comments:</label>
+        <div className='dataInput'>
+          <label className='dataInput__label'>Comments:</label>
           <textarea
-            className='commentsInput'
+            className='dataInput__comments'
             rows='3'
             name='comments'
             value={data.comments}
@@ -129,6 +129,7 @@ const DataForm = props => {
         <AppButton 
           handleClick={handleCancel}
           text='Cancel'
+          classes='medium red'
         />
       </div>
     </form>

@@ -3,8 +3,16 @@
 .inputForm {
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;
   
+  @media only screen and (min-width: $bp-smallest) {
+    margin: 1rem 0;
+  }
+
+  @media only screen and (min-width: $bp-small) {
+    margin: 1.5rem 0;
+  }
+
   &__label {
     font-size: 1.4rem;
     font-weight: 600;

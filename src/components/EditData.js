@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import DataForm from './DataForm';
 import * as actions from '../store/actions';
-import '../style/EditData.css';
+import '../style/AddData.scss';
 
 class EditData extends Component {
   constructor(props) {

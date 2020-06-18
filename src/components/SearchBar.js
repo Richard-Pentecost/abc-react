@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../style/SearchBar.css';
+import '../style/SearchBar.scss';
 
 class SearchBar extends Component {
   state = {
@@ -20,20 +20,18 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className='searchBar-container'>
-          <input 
-            className='searchBar-input'
-            type='text'
-            name='search' 
-            value={this.state.searchValue}
-            onChange={this.handleChange}
-            placeholder='Search'
-          />
-          <button type='submit' className='searchBar-btn'>
-            <span className='searchBar-btnIcon'><FontAwesomeIcon icon={'search'} /></span>
-          </button>
-        </div>
+      <form onSubmit={this.handleSubmit} className='searchBar'>
+        <input 
+          className='searchBar__input'
+          type='text'
+          name='search' 
+          value={this.state.searchValue}
+          onChange={this.handleChange}
+          placeholder='Search'
+        />
+        <button type='submit' className='searchBar__btn'>
+          <span className='searchBar__btnIcon'><FontAwesomeIcon icon={'search'} /></span>
+        </button>
       </form>
     );
   }

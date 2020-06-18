@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import AppButton from './AppButton';
 import SearchBar from './SearchBar';
-import '../style/SideBar.css';
+import '../style/SideBar.scss';
 
 class SideBar extends Component {
   constructor(props) {
@@ -14,13 +14,19 @@ class SideBar extends Component {
 
   render() {
     return (
-      <div className='sideBar-container'>
-        <SearchBar searchHandler={this.props.searchHandler} />
-        <AppButton 
-          handleClick={() => this.props.history.push('/add-farm')} 
-          text='Add Farm'
-          icon='plus'
-        />
+      <div className='sideBar'>
+        <div className='sideBar__spacing'></div>
+        <div className='sideBar__search'>
+          <SearchBar searchHandler={this.props.searchHandler} />
+        </div>
+        <div className='sideBar__btn'>
+          <AppButton 
+            handleClick={() => this.props.history.push('/add-farm')} 
+            text='Add Farm'
+            icon='plus'
+            hide
+          />
+        </div>
       </div>
     )
   };

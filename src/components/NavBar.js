@@ -1,30 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import abcLogo from '../abcLogo.png';
-import '../style/NavBar.css';
+import '../style/NavBar.scss';
 
 const NavBar = ({ authenticate, onLogout }) => {
   
   const links = (
-    <div className='links'>
-        <ul className='links_list'>
-          <li className='links_list-item'>
-            <Link to='/add-farm'>Add Farm</Link>
-          </li>
-          <li className='links_list-item'>
-            <Link 
-              to='/'
-              onClick={onLogout}
-            >Logout</Link>
-          </li>
-        </ul>
-      </div>
+    <div className='navbar__links'>
+      <Link 
+        to='/'
+        onClick={onLogout}
+        className='link'
+      >Logout</Link>
+    </div>
   );
 
   return (
     <div className='navbar'>
-      <div className='title'>
-        <Link to='/home'><img src={abcLogo} alt='logo' /></Link>
+      <div className='navbar__title'>
+        <Link to='/home' className='link'>ABC</Link>
       </div>
       {authenticate() ? links : null }
     </div>
@@ -32,3 +26,5 @@ const NavBar = ({ authenticate, onLogout }) => {
 }
 
 export default NavBar;
+
+// <img src={abcLogo} alt='logo' />

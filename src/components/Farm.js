@@ -9,7 +9,7 @@ import AppButton from './AppButton';
 // import SearchBar from './SearchBar';
 import * as actions from '../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../style/Farm.css';
+import '../style/Farm.scss';
 
 class Farm extends Component{
   state = { 
@@ -68,23 +68,23 @@ class Farm extends Component{
   
   render() {
     const selectedFarm = this.selectedFarm();
-    let farm = <Spinner />;
-    if (selectedFarm) {
-      farm = (
+    let farmData;
+    if (selectedFarm && this.props.data) {
+      farmData = (
         <>
-          <div className='farmHeader-container'>
-            <div className='farmHeader-title'>
-              <div className='farmHeader-text'>{selectedFarm.farmName}</div>
+          <div className='farmHeader'>
+            <div className='farmHeader__title'>
+              <div className='farmHeader__text'>{selectedFarm.farmName}</div>
               <Link 
                 to={{
                   pathname: `${selectedFarm._id}/edit`,
                   aboutProp: {selectedFarm}
                 }}
               >
-                <span className='farmHeader-link'><FontAwesomeIcon icon={['far', 'edit' ]} /></span>
+                <span className='farmHeader__link'><FontAwesomeIcon icon={['far', 'edit' ]} /></span>
               </Link>
             </div>
-            <div className='farmHeader-info'>
+            <div className='farmHeader__info'>
               <div>
                 <label>Contact: </label>
                 <span>{selectedFarm.contactName}</span>
@@ -99,26 +99,39 @@ class Farm extends Component{
               </div>
             </div>
           </div>
-          <AppButton 
-            handleClick={() => this.props.history.push({
-              pathname: `${this.props.location.pathname}/add-data`,
-              state: { id: selectedFarm._id }
-            })} 
-            text='Add Data'
-            icon='plus'
-          />
-          { this.props.data.length === 0 ?
-              <div>No data found</div> :
-              <Table 
-                data={this.props.data} 
-                deleteHandler={this.openModal}
-                clickHandler={this.handleClick}
-              />
-          }
+          <div className='farmData'>
+            <div className='farmData__container'>
+              <div className='farmData__btn'>
+                <AppButton 
+                  handleClick={() => this.props.history.push({
+                    pathname: `${this.props.location.pathname}/add-data`,
+                    state: { id: selectedFarm._id }
+                  })} 
+                  text='Add Data'
+                  icon='plus'
+                />
+              </div>
+              <div className='farmData__data'>
+                { this.props.data.length === 0 ?
+                    <div>No data found</div> :
+                    <Table 
+                      data={this.props.data} 
+                      deleteHandler={this.openModal}
+                      clickHandler={this.handleClick}
+                    />
+                }
+              </div>
+            </div>
+          </div>
         </>
       );
     };
     
+    let farm = <Spinner />;
+    if (this.props.data) {
+      farm = farmData;
+    };
+
     let modal = null;
     if (this.state.showModal) {
       modal = (

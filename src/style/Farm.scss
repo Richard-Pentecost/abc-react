@@ -1,0 +1,55 @@
+@import './variables.scss';
+
+.farmContainer {
+  padding: 1rem;
+}
+
+.farmHeader {
+  display: flex;
+  border-bottom: 1px solid $color-grey;
+  justify-content: space-between;
+  
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__text {
+    font-size: 2.6rem;
+    font-weight: 500;
+    padding: 1rem;
+  }
+  
+  &__link {
+    color: $color-blue-1;
+    font-size: 1.8rem
+  }
+
+  &__info {
+    padding-right: 1rem;
+    text-decoration: none;
+    font-size: 1.4rem;
+    
+  }
+}
+
+.farmData {
+  text-align: center;
+  margin: 2rem 0;
+
+  &__container {  
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  &__btn {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__data {
+    margin-top: 1rem;
+  }
+}
+

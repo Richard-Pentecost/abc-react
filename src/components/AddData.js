@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DataForm from './DataForm';
 import * as actions from '../store/actions';
-import '../style/AddData.css';
+import '../style/AddData.scss';
 
 class AddData extends Component {
 

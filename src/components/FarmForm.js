@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from './Input'
 import Button from './Button';
-import '../style/FarmForm.css';
+import '../style/FarmForm.scss';
 
 const FarmForm = props => {
   const {
@@ -18,9 +18,9 @@ const FarmForm = props => {
 
   return (
     <div>
-      <div className='farmForm-titleContainer'>
-        <span className='farmForm-title'>{title}</span>
-        <span className='farmForm-backLink' onClick={handleBack}>Go Back</span>
+      <div className='farmForm'>
+        <span className='farmForm__title'>{title}</span>
+        <span className='farmForm__backLink' onClick={handleBack}>Go Back</span>
       </div>
       <form onSubmit={handleSubmitForm}>
         <Input
