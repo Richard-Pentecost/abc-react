@@ -11,9 +11,9 @@ export const dataInputChange = ({ prop, value}) => {
   };
 };
 
-export const fetchData = res => {
+export const fetchDataSuccess = res => {
   return {
-    type: actionTypes.FETCH_DATA,
+    type: actionTypes.FETCH_DATA_SUCCESS,
     payload: res,
   }
 };
@@ -21,6 +21,10 @@ export const fetchData = res => {
 const fetchDataFail = () => {
   return { type: actionTypes.FETCH_DATA_FAIL};
 };
+
+const fetchDataStart = () => {
+  return { type: actionTypes.FETCH_DATA_START};
+}
 
 export const clearDataForm = () => {
   return { type: actionTypes.CLEAR_DATA_FORM };
@@ -34,11 +38,12 @@ export const clearState = () => {
   return { type: actionTypes.CLEAR_STATE };
 };
 
-export const initData = id => {
+export const initData = (id, search = '') => {
   return async dispatch => {
     try {
-      const response = await axios.get(`${URL}/${id}/data`);
-      dispatch(fetchData(response.data));
+      dispatch(fetchDataStart())
+      const response = await axios.get(`${URL}/${id}/data/${search}`);
+      dispatch(fetchDataSuccess(response.data));
     } catch {
       dispatch(fetchDataFail());
     };

@@ -3,27 +3,44 @@
 .farmCard {
   border: 1px solid $color-grey;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
   margin: .5rem;
   border-radius: 1px;
   background: $color-white;
+
+  @media only screen and (min-width: $bp-smallest) {
+    padding: 1rem;
+  }
 
 
   &__header {
     border-bottom: 1px solid $color-grey;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: 1.6rem;
+
+    @media only screen and (min-width: $bp-smallest) {
+      font-size: 2rem;
+    }
   }
 
   &__info {
-    font-size: 1.4rem;
-    padding: 1rem 0;
+    font-size: 1.2rem;
+    padding: 0.2rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media only screen and (min-width: $bp-smallest) {
+      flex-direction: column;
+      padding: 1rem 0;
+      font-size: 1.4rem;
+    }
   }
 
   &__item {
-    padding-bottom: 0.5rem;
+    @media only screen and (min-width: $bp-smallest) {
+      padding-bottom: 0.5rem;
+    }
   }
 
   &__text {
@@ -39,8 +56,12 @@
 
   &__link {
     color: $color-blue-1;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-decoration: none;
+
+    @media only screen and (min-width: $bp-smallest) {
+      font-size: 1.2rem;
+    }
   }
   
   &__link:hover {

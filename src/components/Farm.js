@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import qs from 'qs';
+import qs from 'qs';
 import Spinner from './Spinner';
 import Table from './Table';
 import Modal from './Modal';
 import AppButton from './AppButton';
-// import SearchBar from './SearchBar';
 import * as actions from '../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/Farm.scss';
 
-class Farm extends Component{
+class Farm extends Component {
   state = { 
     showModal: false,
     selectedId: '',
+    records: 'all',
   };
   
   componentDidMount() {
@@ -61,16 +61,44 @@ class Farm extends Component{
   componentDidUpdate(prevProps) {
     const { search } = this.props.location;
     if (search !== prevProps.location.search) {
-      console.log(search);
-      // call API with redux
+      const id = this.props.match.params.id;
+      this.props.onInitData(id, search);
     };
   };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    })
+
+    let url = `${this.props.location.pathname}`;
+    if (value !== 'all') {
+      url = this.buildQueryString('records', { searchString: value });
+    }
+    this.props.history.push(url);
+  };
+
+
+  buildQueryString = (operation, valueObj) => {
+    const { search } = this.props.location;
+    const currentQueryParams = qs.parse(search, { ignoreQueryPrefix: true });
+    const newQueryParams = {
+      ...currentQueryParams,
+      [operation]: JSON.stringify({
+        ...JSON.parse(currentQueryParams[operation] || '{}'),
+        ...valueObj,
+      })
+    };
+    return qs.stringify(newQueryParams, { addQueryPrefix: true, encode: false });
+  }
   
   render() {
+    const { data, loading } = this.props;
     const selectedFarm = this.selectedFarm();
-    let farmData;
-    if (selectedFarm && this.props.data) {
-      farmData = (
+    let farm;
+    if (selectedFarm && data) {
+      farm = (
         <>
           <div className='farmHeader'>
             <div className='farmHeader__title'>
@@ -101,15 +129,27 @@ class Farm extends Component{
           </div>
           <div className='farmData'>
             <div className='farmData__container'>
-              <div className='farmData__btn'>
-                <AppButton 
-                  handleClick={() => this.props.history.push({
-                    pathname: `${this.props.location.pathname}/add-data`,
-                    state: { id: selectedFarm._id }
-                  })} 
-                  text='Add Data'
-                  icon='plus'
-                />
+              <div className='farmData__actions'>
+                <div className='farmDataSelect'>
+                  <label className='farmDataSelect__label'>Records:</label>
+                  <select name='records' value={this.state.records} className='farmDataSelect__input' onChange={this.handleInputChange}>
+                    <option value='1 month'>1 month</option>
+                    <option value='3 months'>3 months</option>
+                    <option value='6 months'>6 months</option>
+                    <option value='1 year'>1 year</option>
+                    <option value='all'>all</option>
+                  </select>
+                </div>
+                <div className='farmData__btn'>
+                  <AppButton 
+                    handleClick={() => this.props.history.push({
+                      pathname: `${this.props.location.pathname}/add-data`,
+                      state: { id: selectedFarm._id }
+                    })} 
+                    text='Add Data'
+                    icon='plus'
+                  />
+                </div>
               </div>
               <div className='farmData__data'>
                 { this.props.data.length === 0 ?
@@ -126,11 +166,6 @@ class Farm extends Component{
         </>
       );
     };
-    
-    let farm = <Spinner />;
-    if (this.props.data) {
-      farm = farmData;
-    };
 
     let modal = null;
     if (this.state.showModal) {
@@ -145,7 +180,7 @@ class Farm extends Component{
 
     return (
       <div className='farmContainer'>
-        {farm}
+        { loading ? <Spinner /> : farm }
         {modal}
       </div>
     )
@@ -156,13 +191,15 @@ const mapStateToProps = state => {
   return {
     farms: state.farms.farms,
     data: state.data.data,
+    loading: state.data.loading,
+    error: state.data.error,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onInitFarms: () => dispatch(actions.initFarms()),
-    onInitData: (id) => dispatch(actions.initData(id)),
+    onInitData: (id, search) => dispatch(actions.initData(id, search)),
     onClearState: () => dispatch(actions.clearState()),
     onDeleteData: (farmId, dataId) => dispatch(actions.deleteData(farmId, dataId)),
   };

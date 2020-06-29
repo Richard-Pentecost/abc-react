@@ -1,15 +1,15 @@
 import React from 'react';
 import AppButton from './AppButton';
-import '../style/Modal.css';
+import '../style/Modal.scss';
 
 const Modal = ({ displayText, deleteHandler, cancelHandler }) => {
   return (
-    <div className='modal-container'>
-      <div className='modalForm-container'>
-        <div className='modalForm-text'>
+    <div className='modal'>
+      <div className='modal__form'>
+        <div className='modal__text'>
           {displayText}
         </div>
-        <div className='modalForm-btnContainer'>
+        <div className='modal__btn'>
           <AppButton 
             handleClick={deleteHandler} 
             text='Continue'

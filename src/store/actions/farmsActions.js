@@ -4,9 +4,9 @@ import TokenManager from '../../utils/token-manager';
 
 const URL = 'http://localhost:3000/farms';
 
-const fetchFarms = (res) => {
+const fetchFarmsSuccess = (res) => {
   return {
-    type: actionTypes.FETCH_FARMS,
+    type: actionTypes.FETCH_FARMS_SUCCESS,
     payload: res,
   };
 };
@@ -16,6 +16,12 @@ const fetchFarmsFailed = () => {
     type: actionTypes.FETCH_FARMS_FAILED,
   };
 };
+
+const fetchFarmsStart = () => {
+  return {
+    type: actionTypes.FETCH_FARMS_START,
+  }
+}
 
 export const clearFarmForm = () => {
   return {
@@ -39,8 +45,9 @@ export const farmUpdate = ({ prop, value }) => {
 export const initFarms = (search = '') => {
   return async (dispatch) => {
     try {
+      dispatch(fetchFarmsStart());
       const response = await axios.get(`${URL}/${search}`);
-      dispatch(fetchFarms(response.data));
+      dispatch(fetchFarmsSuccess(response.data));
     } catch (error) {
       dispatch(fetchFarmsFailed());
     }

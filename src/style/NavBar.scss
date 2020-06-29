@@ -14,7 +14,7 @@
     padding: 1rem 2rem;
   }
 
-  &__links {
+  &__item {
     padding: 1rem 2rem;
     font-size: 1.4em;
     font-weight: 400;
@@ -23,6 +23,11 @@
     display: flex;
     margin: 2px;
   }  
+
+  &__text {
+    display: block;
+    align-self: center;
+  }
 }
 
 .link {

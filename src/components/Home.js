@@ -26,7 +26,10 @@ class Home extends Component {
   };
 
   handleSearch = searchValue => {
-    const url = this.buildQueryString('query', { searchString: searchValue });
+    let url = '/';
+    if (searchValue) {
+      url = this.buildQueryString('query', { searchString: searchValue });
+    }
     this.props.history.push(url);
   };
 
@@ -66,8 +69,8 @@ class Home extends Component {
 
 
   render() {
-    const { farms } = this.props;
-    let farmList = <Spinner />;
+    const { farms, loading } = this.props;
+    let farmList;
     if (farms) {
       farmList = farms.map(farm => {
         return (
@@ -100,7 +103,7 @@ class Home extends Component {
           <SideBar query={this.buildQueryString} searchHandler={this.handleSearch}/>
         </div>
         <div className='farmList'>
-          {farmList}
+          { loading ? <Spinner /> : farmList }
           {modal}
         </div>
       </div>
@@ -111,6 +114,8 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     farms: state.farms.farms,
+    error: state.farms.error,
+    loading: state.farms.loading,
   };
 };
 

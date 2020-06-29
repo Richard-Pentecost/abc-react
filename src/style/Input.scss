@@ -21,9 +21,9 @@
   }
   
  &__input {
-    border: 1px solid #d1d5da;
+    border: 1px solid $color-grey;
     font-size: 1.6rem;
-    background-color: #fafbfc;
+    background-color: $color-grey-light-1;
     padding: 1rem;
     border-radius: 0.5rem;
   }

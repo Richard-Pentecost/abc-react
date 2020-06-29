@@ -7,7 +7,8 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 // Farm actionTypes
-export const FETCH_FARMS = 'FETCH_FARMS';
+export const FETCH_FARMS_START = 'FETCH_FARMS_START';
+export const FETCH_FARMS_SUCCESS = 'FETCH_FARMS';
 export const FETCH_FARMS_FAILED = 'FETCH_FARMS_FAILED';
 export const ADD_FARM_FAIL= 'ADD_FARM_FAIL';
 
@@ -16,7 +17,8 @@ export const FARM_INPUT_UPDATE = 'FARM_INPUT_UPDATE';
 export const CLEAR_FARM_FORM = 'CLEAR_FARM_FORM';
 
 // Data actionTypes
-export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_DATA_START = 'FETCH_DATA_START';
+export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 export const FETCH_DATA_FAIL = 'FETCH_DATA_FAIL';
 export const ADD_DATA_FAIL = 'ADD_DATA_FAIL';
 export const CLEAR_STATE = 'CLEAR_STATE';

@@ -1,0 +1,31 @@
+@import './variables.scss';
+
+.createUser {
+  padding: 2rem 10rem;
+
+  &__form {
+    width: 80%;
+  }
+
+  &__btn {
+    padding-top: 1.5rem;
+    width: 20rem;
+  }
+}
+
+.radioBtn {
+  display:flex;
+
+  &__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2rem;
+  }
+
+  &__text{
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+}

@@ -34,8 +34,8 @@ const Table = ({ data, deleteHandler, clickHandler }) => {
         <thead>
           <tr className='tableTitle'>
             <th className='tableTitle__style'>Date</th>
-            <th className='tableTitle__style'>Quantity</th>
             <th className='tableTitle__style'>Product</th>
+            <th className='tableTitle__style'>Quantity</th>
             <th className='tableTitle__style'>Meter Reading</th>
             <th className='tableTitle__style'>Float Before Delivery</th>
             <th className='tableTitle__style'>Water Usage</th>

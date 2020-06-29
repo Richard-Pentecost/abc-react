@@ -8,7 +8,7 @@ const setToken = (token) => {
 const getToken = () => window.localStorage.getItem('apiToken');
 
 const getTokenPayload = () => {
-  const token = getToken();
+  const token = getToken(); 
   return token && decode(token);
 };
 

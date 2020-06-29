@@ -1,0 +1,52 @@
+@import './variables.scss';
+
+.dropdown {
+  position: absolute;
+  top: 5.5rem;
+  width: 30rem;
+  transform: translateX(-80%);
+  background-color: $color-white;
+  // border: 1px solid $color-grey;
+  // border-top: 1px solid $color-white;
+  box-shadow: -1rem 2rem 5rem rgba(black, 0.2);
+  border-radius: 5px;
+  padding: 1rem;
+  overflow: hidden;
+  z-index: 100;
+ 
+  &__item {
+    color: black;
+
+    &:hover {
+      background: blue;
+      color: white;
+    }
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: inherit;
+  }
+  
+  &__form {
+    background-color: $color-white;
+    width: 50%;
+    margin: 30rem auto;
+    padding: 1.6rem 2.4rem;
+    text-align: center;
+    border-radius: 0.5rem;
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2rem;
+  }
+}

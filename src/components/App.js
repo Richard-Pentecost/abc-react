@@ -10,14 +10,16 @@ import EditFarm from './EditFarm';
 import AuthRoute from './AuthRoute';
 import AddData from './AddData';
 import EditData from './EditData';
+import Profile from './Profile';
+import CreateUser from './CreateUser';
 import { logoutUser } from '../store/actions';
 import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faPhoneSquare, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPhoneSquare, faPlus, faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard, faEdit, faTrashAlt, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import '../style/App.scss';
 
-library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt);
+library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt, faCaretDown);
 
 class App extends Component {
 
@@ -75,6 +77,18 @@ class App extends Component {
             exact
             path="/farms/:id/:dataId"
             component={EditData}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute 
+            exact
+            path="/profile"
+            component={Profile}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute 
+            exact
+            path="/create-user"
+            component={CreateUser}
             authenticate={this.isLoggedIn}
           />
         </Switch>
