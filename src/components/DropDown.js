@@ -12,6 +12,9 @@ const DropDown = ({ hideDropDown, onLogout }) => {
         <Link to='/create-user' className='dropdown__link'>Create User</Link>
       </div>
       <div className='dropdown__item' onClick={hideDropDown}>
+        <Link to='/users' className='dropdown__link'>Users</Link>
+      </div>
+      <div className='dropdown__item' onClick={hideDropDown}>
         <Link 
           to='/'
           onClick={onLogout}

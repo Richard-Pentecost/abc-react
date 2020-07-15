@@ -35,7 +35,7 @@ const addDataFail = () => {
 }
 
 export const clearState = () => {
-  return { type: actionTypes.CLEAR_STATE };
+  return { type: actionTypes.CLEAR_DATA_STATE };
 };
 
 export const initData = (id, search = '') => {

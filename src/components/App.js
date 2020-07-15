@@ -12,6 +12,7 @@ import AddData from './AddData';
 import EditData from './EditData';
 import Profile from './Profile';
 import CreateUser from './CreateUser';
+import Users from './Users';
 import { logoutUser } from '../store/actions';
 import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -83,6 +84,12 @@ class App extends Component {
             exact
             path="/profile"
             component={Profile}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute 
+            exact
+            path="/users"
+            component={Users}
             authenticate={this.isLoggedIn}
           />
           <AuthRoute 
