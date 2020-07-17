@@ -87,14 +87,14 @@ export const createUser = data => {
 //   }
 // };
 
-// export const deleteFarm = id => {
-//   return async dispatch => {
-//     try {
-//       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-//       await axios.delete(`${URL}/${id}`, axiosHeaders);
-//       dispatch(initFarms());
-//     } catch (err) {
-//       console.log('[Here]', err.response);
-//     };
-//   };
-// };
+export const deleteUser = id => {
+  return async dispatch => {
+    try {
+      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+      await axios.delete(`${URL}/${id}`, axiosHeaders);
+      dispatch(initUsers());
+    } catch (err) {
+      console.log('[Here]', err.response);
+    };
+  };
+};

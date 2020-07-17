@@ -1,0 +1,57 @@
+@import './variables.scss';
+
+.profileSideBar {
+  border: 1px solid $color-grey;
+  border-radius: 0.5rem;
+}
+
+.profileSideBarHeading {
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $color-grey;
+
+  &__nameText {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  &__text {
+    font-size: 1.2rem;
+  }
+}
+
+.profileSideBarLink {
+  font-size: 1.6rem;
+
+  border-bottom: 1px solid $color-grey;
+  cursor: pointer;
+  
+  &:last-child {
+    border-bottom: none;
+    border-radius: 0.5rem;
+  }
+
+  &:hover {
+    background-color: $color-grey-light-1;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $color-grey-dark-1;
+    display: block;
+    padding: 0.8rem 1.6rem;
+    border-left: 2px solid transparent;
+    
+    &:last-child {
+      border-bottom-right-radius: 0.5rem;
+    }
+    
+    &.active {
+      border-left: 2px solid $color-green-dark;
+      background-color: $color-grey-light-1;
+    }
+  }
+}
+
+

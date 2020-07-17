@@ -42,6 +42,7 @@
     display: inline-flex;
     flex-direction: column;
     text-align: center;
+    min-width: 60%;
   }
 
   &__actions {
@@ -51,6 +52,10 @@
 
   &__data {
     margin-top: 1rem;
+
+    &__txt {
+      font-size: 1.2rem;
+    }
   }
 }
 

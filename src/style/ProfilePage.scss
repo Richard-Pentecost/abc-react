@@ -1,0 +1,22 @@
+@import './variables.scss';
+
+.profilePage {
+  padding: 2rem 15rem;
+  display: flex;
+  flex-direction: row;
+  
+  &__sidebar {
+    width: 30rem;
+    padding-right: 5em;
+  }
+
+  &__section {
+    flex: 1
+  }
+}
+
+.profilePageSection {
+  padding: 0 1rem;
+  margin: 1rem;
+  font-size: 1.4rem
+}

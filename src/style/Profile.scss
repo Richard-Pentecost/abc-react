@@ -1,3 +1,10 @@
+@import './variables.scss';
+
 .profile {
-  padding: 2rem 10rem;
+  width: 60%;
+
+  &__btn {
+    padding-top: 1.5rem;
+    width: 20rem;
+  }
 }

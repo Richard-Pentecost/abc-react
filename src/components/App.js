@@ -10,7 +10,7 @@ import EditFarm from './EditFarm';
 import AuthRoute from './AuthRoute';
 import AddData from './AddData';
 import EditData from './EditData';
-import Profile from './Profile';
+import ProfilePage from './ProfilePage';
 import CreateUser from './CreateUser';
 import Users from './Users';
 import { logoutUser } from '../store/actions';
@@ -81,21 +81,8 @@ class App extends Component {
             authenticate={this.isLoggedIn}
           />
           <AuthRoute 
-            exact
-            path="/profile"
-            component={Profile}
-            authenticate={this.isLoggedIn}
-          />
-          <AuthRoute 
-            exact
-            path="/users"
-            component={Users}
-            authenticate={this.isLoggedIn}
-          />
-          <AuthRoute 
-            exact
-            path="/create-user"
-            component={CreateUser}
+            path="/settings"
+            component={ProfilePage}
             authenticate={this.isLoggedIn}
           />
         </Switch>

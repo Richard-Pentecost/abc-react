@@ -15,6 +15,19 @@ class Farm extends Component {
     showModal: false,
     selectedId: '',
     records: 'all',
+    tableHeadings: [
+      'Date',
+      'Product',
+      'Quantity',
+      'Meter Reading',
+      'Float Before Reading',
+      'Water Usage',
+      'Pump Dial',
+      'Float',
+      'Readings',
+      'Comments',
+      ''
+    ],
   };
   
   componentDidMount() {
@@ -153,9 +166,10 @@ class Farm extends Component {
               </div>
               <div className='farmData__data'>
                 { this.props.data.length === 0 ?
-                    <div>No data found</div> :
+                    <div className='farmData__data__txt'>No data found</div> :
                     <Table 
                       data={this.props.data} 
+                      tableHeadings={this.state.tableHeadings}
                       deleteHandler={this.openModal}
                       clickHandler={this.handleClick}
                     />
