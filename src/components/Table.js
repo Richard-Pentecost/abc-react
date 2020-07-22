@@ -3,11 +3,15 @@ import moment from 'moment';
 import '../style/Table.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Table = ({ data, tableHeadings, deleteHandler, clickHandler }) => {
+const Table = ({ data, tableHeadings, isAdmin, deleteHandler, clickHandler }) => {
 
   const headings = tableHeadings.map((heading, index) => (
     <th key={index} className='tableTitle__style'>{heading}</th>
   ));
+
+  let disableDeleteButton;
+
+  if (!isAdmin) { disableDeleteButton = { 'display': 'none'}}
 
   const tbody = data.map((input, index) => (
     <tr className='tableBody' key={index} onClick={() => clickHandler(input)}>
@@ -20,7 +24,7 @@ const Table = ({ data, tableHeadings, deleteHandler, clickHandler }) => {
           return tableCell;
         })
       }
-      <td className='tableBody__cell'>
+      <td className='tableBody__cell' style={disableDeleteButton}>
         <div onClick={(event) => {
           event.stopPropagation();
           deleteHandler(input._id);

@@ -1,47 +1,52 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HeaderSection from './HeaderSection';
+import AdminRoute from './AdminRoute';
 import ProfileSideBar from './ProfileSideBar';
 import ChangePassword from './ChangePassword';
 import Profile from './Profile';
 import CreateUser from './CreateUser';
 import Users from './Users';
-// mport * as actions from '../store/actions';
+import Spinner from './Spinner';
+import * as actions from '../store/actions';
 import '../style/ProfilePage.scss';
 
 class ProfilePage extends Component {
 
+  componentDidMount() {
+    this.props.onFetchUser(this.props.id);
+    this.props.onInitUsers();
+  };
 
   render() {
-    const { name } = this.props.user;
     const { path } = this.props.match;
-
-    let title = 'Profile';
-    if (this.props.location.aboutProp) {
-      title = this.props.location.aboutProp.title;
-    } 
+    let content = <Spinner />;
+    if (!this.props.loading && this.props.user) {
+      const { user, isAdmin } = this.props;
+      content = (
+        <>
+          <div className='profilePage__sidebar'>
+              <ProfileSideBar
+                isAdmin={isAdmin} 
+                name={user.name} 
+              />
+          </div>
+          <div className='profilePage__section'>
+              <Switch>
+                <Route path={`${path}/profile`} component={Profile} />
+                <Route path={`${path}/security`} component={ChangePassword} />
+                <AdminRoute path={`${path}/create-user`} component={CreateUser} isAdmin={isAdmin} />
+                <AdminRoute path={`${path}/users`} component={Users} isAdmin={isAdmin} />
+                <Redirect to={`${path}/profile`} />
+              </Switch>
+          </div> 
+        </>
+      );
+    }
 
     return (
        <div className='profilePage'>
-         <div className='profilePage__sidebar'>
-          <ProfileSideBar 
-            name={name} 
-          />
-         </div>
-         <div className='profilePage__section'>
-          <HeaderSection>{title}</HeaderSection>
-
-          <div className='profilePageSection'>
-            <Switch>
-              <Route path={`${path}/profile`} component={Profile} />
-              <Route path={`${path}/security`} component={ChangePassword} />
-              <Route path={`${path}/create-user`} component={CreateUser} />
-              <Route path={`${path}/users`} component={Users} />
-              <Redirect to={`${path}/profile`} />
-            </Switch>
-          </div>
-         </div> 
+        {content}
       </div>
     );
   };
@@ -49,15 +54,19 @@ class ProfilePage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user,
+    id: state.auth.token.id,
+    isAdmin: state.auth.token.permissionLevel === 'admin',
+    user: state.users.currentUser,
+    loading: state.users.loading,
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onInitUsers: () => dispatch(actions.initUsers()),
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    onInitUsers: () => dispatch(actions.initUsers()),
+    onFetchUser: id => dispatch(actions.fetchUser(id)),
+  };
+};
 
 
-export default connect(mapStateToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

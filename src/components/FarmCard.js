@@ -4,7 +4,7 @@ import AppButton from './AppButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/FarmCard.scss';
 
-const FarmCard = ({ farm, clickHandler, deleteHandler }) => {
+const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
   
   const onDelete = (event) => {
     event.stopPropagation();
@@ -41,12 +41,16 @@ const FarmCard = ({ farm, clickHandler, deleteHandler }) => {
         >
           Edit Farm Details
         </Link>
-        <AppButton 
-          handleClick={event => onDelete(event)} 
-          text='Delete'
-          icon={[ 'far', 'trash-alt' ]}
-          classes='small red'
-        />
+        {
+          isAdmin ? (
+            <AppButton 
+              handleClick={event => onDelete(event)} 
+              text='Delete'
+              icon={[ 'far', 'trash-alt' ]}
+              classes='small red'
+            />
+          ) : null
+        }
       </div>
     </div>
   );

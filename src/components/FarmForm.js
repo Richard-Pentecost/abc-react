@@ -5,7 +5,8 @@ import '../style/FarmForm.scss';
 
 const FarmForm = props => {
   const {
-    title, 
+    title,
+    isAdmin, 
     farmName,
     postcode,
     contactName,
@@ -24,6 +25,7 @@ const FarmForm = props => {
       </div>
       <form onSubmit={handleSubmitForm}>
         <Input
+          disabled={!isAdmin}
           input={farmName}
           inputChange={handleInputChange} 
           label='Farm Name'
@@ -32,6 +34,7 @@ const FarmForm = props => {
           required
         />
         <Input
+          disabled={!isAdmin}
           input={postcode}
           inputChange={handleInputChange} 
           label='Postcode'
@@ -40,6 +43,7 @@ const FarmForm = props => {
           required
         />
         <Input
+          disabled={!isAdmin}
           input={contactName}
           inputChange={handleInputChange} 
           label='Contact Name'
@@ -48,6 +52,7 @@ const FarmForm = props => {
           required
         />
         <Input
+          disabled={!isAdmin}
           input={contactNumber}
           inputChange={handleInputChange} 
           label='Contact Number'
@@ -55,7 +60,7 @@ const FarmForm = props => {
           type="text"
           required
         />
-        <Button text={btnText}/>
+        <Button text={btnText} disabled={!isAdmin} />
       </form>
     </div>
   );

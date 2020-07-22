@@ -69,7 +69,7 @@ class Home extends Component {
 
 
   render() {
-    const { farms, loading } = this.props;
+    const { farms, loading, isAdmin } = this.props;
     let farmList;
     if (farms) {
       farmList = farms.map(farm => {
@@ -77,6 +77,7 @@ class Home extends Component {
           <div className='farmList__card' key={farm.farmName} >
             <FarmCard 
               farm={farm} 
+              isAdmin={isAdmin}
               clickHandler={() => this.handleClick(farm._id)} 
               deleteHandler={() => this.openModal(farm._id)}
             />
@@ -116,6 +117,7 @@ const mapStateToProps = state => {
     farms: state.farms.farms,
     error: state.farms.error,
     loading: state.farms.loading,
+    isAdmin: state.auth.token.permissionLevel === 'admin',
   };
 };
 

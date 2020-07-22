@@ -23,6 +23,25 @@ const fetchUsersStart = () => {
   }
 }
 
+const fetchCurrentUserSuccess = (res) => {
+  return {
+    type: actionTypes.FETCH_CURRENT_USER_SUCCESS,
+    payload: res,
+  };
+};
+
+const fetchCurrentUserFailed = () => {
+  return {
+    type: actionTypes.FETCH_CURRENT_USER_FAIL,
+  };
+};
+
+const fetchCurrentUserStart = () => {
+  return {
+    type: actionTypes.FETCH_CURRENT_USER_START,
+  }
+}
+
 export const clearUserForm = () => {
   return {
     type: actionTypes.CLEAR_USER_FORM,
@@ -55,6 +74,19 @@ export const initUsers = () => {
   };
 };
 
+export const fetchUser = id => {
+  return async dispatch => {
+    try {
+      dispatch(fetchCurrentUserStart());
+      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+      const response = await axios.get(`${URL}/${id}`, axiosHeaders);
+      dispatch(fetchCurrentUserSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchCurrentUserFailed());
+    }
+  }
+}
+
 export const createUser = data => {
   const { confirmPassword, ...userData } = data;
   return async (dispatch) => {
@@ -72,20 +104,36 @@ export const createUser = data => {
   };
 };
 
-// export const editFarm = ({ farmName, postcode, contactName, contactNumber, id }) => {
-//   return async dispatch => {
-//     try {
-//       const data = { farmName, postcode, contactName, contactNumber};
-//       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-//       await axios.patch(`${URL}/${id}`, data, axiosHeaders);
-//       dispatch(initFarms());
-//       dispatch(clearFarmForm());
-//       return;
-//     } catch (error) {
-//       dispatch(addFarmFail());
-//     };
-//   }
-// };
+export const editUser = ({ name, username, id }) => {
+  return async dispatch => {
+    try {
+      const data = { name, username };
+      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+      await axios.patch(`${URL}/${id}/profile`, data, axiosHeaders);
+      dispatch(fetchUser(id));
+    } catch (error) {
+      dispatch(addUserFail());
+    };
+  }
+};
+
+export const changePassword = data => {
+  const { confirmNewPassword, id, ...passwordData } = data;
+
+  return async dispatch => {
+    if (confirmNewPassword !== passwordData.newPassword) {
+      dispatch(addUserFail());
+    } else {
+      try {
+        const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+        await axios.patch(`${URL}/${id}/security`, passwordData, axiosHeaders);
+        dispatch(clearUserForm());
+      } catch (error) {
+        dispatch(addUserFail());
+      };
+    };
+  };
+};
 
 export const deleteUser = id => {
   return async dispatch => {

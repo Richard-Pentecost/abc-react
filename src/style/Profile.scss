@@ -1,6 +1,9 @@
 @import './variables.scss';
 
 .profile {
+  padding: 0 1rem;
+  margin: 1rem;
+  font-size: 1.4rem;
   width: 60%;
 
   &__btn {

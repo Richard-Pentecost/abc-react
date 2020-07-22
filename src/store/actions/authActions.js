@@ -25,10 +25,10 @@ export const passwordChanged = text => {
   };
 };
 
-const loginUserSuccess = user => {
+const loginUserSuccess = token => {
   return { 
     type: LOGIN_USER_SUCCESS,
-    payload: user
+    payload: token,
   };
 };
 
@@ -44,7 +44,7 @@ export const logoutUser = () => {
   return { type: LOGOUT_USER }
 }
 
-export const loginUser = ({ email, password }, history) => {
+export const loginUser = ({ email, password }) => {
   return async dispatch => {
     if (!email || !password) {
       dispatch(loginUserFail('Email and password required'));
@@ -53,9 +53,8 @@ export const loginUser = ({ email, password }, history) => {
       try {
         const response = await axios.post(URL, { email, password });
         TokenManager.setToken(response.data.token);
-        const user = TokenManager.getTokenPayload();
-        dispatch(loginUserSuccess(user));
-        history.push('/home');
+        const token = TokenManager.getTokenPayload();
+        dispatch(loginUserSuccess(token));
       } catch (error) {
         console.log('Error');
         dispatch(loginUserFail(error.response.data.error));

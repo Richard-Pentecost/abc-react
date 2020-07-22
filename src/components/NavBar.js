@@ -28,31 +28,24 @@ class NavBar extends Component {
   };
 
   handleClick = () => {
-    // console.log('called');
     const status = this.state.open;
     this.setState({ open: !status });
   };
   
   render () {
-    const { authenticate, onLogout } = this.props;
-    // const links = (
-    //   <div className='navbar__links'>
-    //     <Link 
-    //       to='/'
-    //       onClick={onLogout}
-    //       className='link'
-    //     >Logout</Link>
-    //   </div>
-    // );
-
-
+    const { authenticate, onLogout, token } = this.props;
+    let isAdmin;
+    if (token) {
+      isAdmin = token.permissionLevel === 'admin';
+    }
     const dropDown = (
       <div className='navbar__item' ref={this.container} onClick={this.handleClick}>
         <span className='navbar__text' >
           Menu <FontAwesomeIcon icon={'caret-down'} />
           { this.state.open && <DropDown 
               hideDropDown={this.handleClick}
-              onLogout={onLogout} 
+              onLogout={onLogout}
+              isAdmin={isAdmin} 
             /> }
         </span>
       </div>

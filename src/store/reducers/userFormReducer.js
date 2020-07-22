@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   password: '',
   confirmPassword: '',
   permissionLevel: 'user',
+  oldPassword: '',
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

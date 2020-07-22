@@ -35,6 +35,11 @@ class EditData extends Component {
     this.props.history.goBack();
   }
 
+  handleCancel = event => {
+    event.preventDefault();
+    this.props.history.goBack();
+  }
+
   render() {
     return (
       <div className='formContainer'>
@@ -43,7 +48,7 @@ class EditData extends Component {
           handleInputChange={this.handleInputChange}
           handleDateChange={this.handleDateChange}
           handleSubmitForm={this.handleSave}
-          handleCancel={() => this.props.history.goBack()}
+          handleCancel={this.handleCancel}
           btnText='Save'
         />
       </div>
@@ -52,8 +57,10 @@ class EditData extends Component {
 };
 
 const mapStateToProps = state => {
-  return { data: state.dataForm };
-}
+  return { 
+    data: state.dataForm,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {

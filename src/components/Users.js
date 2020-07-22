@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './Table';
 import Modal from './Modal';
-import Spinner from './Spinner';
+import HeaderSection from './HeaderSection';
 import * as actions from '../store/actions';
 import '../style/Users.scss';
 
@@ -11,10 +11,6 @@ class Users extends Component {
     showModal: false,
     userId: '',
     tableHeadings: ['Name', 'Username', 'Email', 'Permission Level', ''],
-  };
-
-  componentDidMount() {
-    this.props.onInitUsers();
   };
 
   openModal = id => this.setState({ showModal: true, userId: id });
@@ -27,13 +23,9 @@ class Users extends Component {
     this.setState({ showModal: false, userId: '' });
   }
 
-  handleClick = () => {
-    console.log('clicked');
-  }
-
   render() {
-    const { users } = this.props;
-    console.log(users);
+    const { users, isAdmin } = this.props;
+
     const formattedUsersArray = users.map(user => {
       return  {
         '_id': user._id,
@@ -43,7 +35,7 @@ class Users extends Component {
           'email': user.email,
           'permissionLevel': user.permissionLevel,
         },
-      }
+      };
     });
 
     let table = null;
@@ -51,8 +43,9 @@ class Users extends Component {
       table = <Table 
           data={formattedUsersArray} 
           tableHeadings={this.state.tableHeadings}
+          isAdmin={isAdmin}
           deleteHandler={this.openModal}
-          clickHandler={this.handleClick}
+          clickHandler={() => {}}
         /> 
     }
 
@@ -67,10 +60,13 @@ class Users extends Component {
       )
     }
     return (
-      <div className='users'>
-        {table}
-        {modal}
-      </div>
+      <>
+        <HeaderSection>Users</HeaderSection>
+        <div className='users'>
+          {table}
+          {modal}
+        </div>
+      </>
     )
   }
 }
@@ -78,6 +74,7 @@ class Users extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users.users,
+    isAdmin: state.auth.token.permissionLevel === 'admin',
   };
 };
 

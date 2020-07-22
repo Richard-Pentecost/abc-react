@@ -107,7 +107,7 @@ class Farm extends Component {
   }
   
   render() {
-    const { data, loading } = this.props;
+    const { data, loading, isAdmin } = this.props;
     const selectedFarm = this.selectedFarm();
     let farm;
     if (selectedFarm && data) {
@@ -170,6 +170,7 @@ class Farm extends Component {
                     <Table 
                       data={this.props.data} 
                       tableHeadings={this.state.tableHeadings}
+                      isAdmin={isAdmin}
                       deleteHandler={this.openModal}
                       clickHandler={this.handleClick}
                     />
@@ -207,6 +208,7 @@ const mapStateToProps = state => {
     data: state.data.data,
     loading: state.data.loading,
     error: state.data.error,
+    isAdmin: state.auth.token.permissionLevel === 'admin',
   };
 };
 

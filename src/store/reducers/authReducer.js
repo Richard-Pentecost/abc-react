@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   password: '',
   errorMessage: '',
   loading: false,
-  user: TokenManager.isTokenValid() ? TokenManager.getTokenPayload() : null,
+  token: TokenManager.isTokenValid() ? TokenManager.getTokenPayload() : null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -25,11 +25,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true, errorMessage: '' };
     case LOGIN_USER_SUCCESS:
-      return { ...state, ...INITIAL_STATE, user: action.payload };
+      return { ...state, ...INITIAL_STATE, token: action.payload };
     case LOGIN_USER_FAIL:
       return { ...state, password: '', loading: false, errorMessage: action.payload};
     case LOGOUT_USER:
-      return { ...state, user: null}
+      return { ...state, token: null }
     default:
       return state;
   };

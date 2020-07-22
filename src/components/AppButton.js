@@ -20,13 +20,13 @@ const AppButton = ({ handleClick, text, icon, classes, hide }) => {
     hideClass = 'appBtn__hide';
   }
   return (
-    <div className={`appBtn ${additionalClass}`} onClick={handleClick}>
+    <button className={`appBtn ${additionalClass}`} onClick={handleClick}>
       { icon ? 
         <span className='appBtn__icon'><FontAwesomeIcon icon={icon}/></span>
         : null
       }
       <span className={`appBtn__text ${hideClass}`}>{text}</span>
-    </div>
+    </button>
   );
 }; 
 

@@ -22,4 +22,16 @@
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    border: 1px solid #888;
+    color: #888;
+    background: $color-grey-light-2;
+
+    &:hover {
+      background: $color-grey-light-2;
+    }
+  }
+  
 }

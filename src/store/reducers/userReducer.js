@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   users: [],
+  currentUser: null,
   loading: false,
   error: false,
 };
@@ -27,6 +28,25 @@ const reducer = (state = INITIAL_STATE, action) => {
         loading: false,
         error: true,
       };
+      case actionTypes.FETCH_CURRENT_USER_START:
+        return {
+          ...state,
+          loading: true,
+          error: false,
+        }
+      case actionTypes.FETCH_CURRENT_USER_SUCCESS:
+        return {
+          ...state,
+          currentUser: action.payload,
+          loading: false,
+          error: false,
+        };
+      case actionTypes.FETCH_CURRENT_USER_FAIL:
+        return {
+          ...state,
+          loading: false,
+          error: true,
+        };
     case actionTypes.ADD_USER_FAIL:
       return {
         ...state,

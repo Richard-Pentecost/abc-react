@@ -30,10 +30,12 @@ class AddData extends Component {
     this.props.history.goBack();
   };
 
-  
+  handleCancel = event => {
+    event.preventDefault();
+    this.props.history.goBack();
+  }
 
   render() {
-    // console.log(this.props.data.date);
     return (
       <div className='formContainer'>
         <DataForm 
@@ -41,7 +43,7 @@ class AddData extends Component {
           handleInputChange={this.handleInputChange}
           handleDateChange={this.handleDateChange}
           handleSubmitForm={this.handleSave}
-          handleCancel={() => this.props.history.goBack()}
+          handleCancel={this.handleCancel}
           btnText='Add'
         />
       </div>

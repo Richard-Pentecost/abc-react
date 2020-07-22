@@ -1,14 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const AuthRoute = ({ exact, path, authenticate, component, ...props }) => {
+const AdminRoute = ({ path, isAdmin, component, ...props }) => {
   const Component = component;
   return (
     <Route
       {...props}
-      exact={exact}
       path={path}
-      render={routeProps => (authenticate() ?
+      render={routeProps => (isAdmin ?
         <Component {...routeProps} {...props} /> :
         <Redirect to='/' />
       )}
@@ -17,4 +16,4 @@ const AuthRoute = ({ exact, path, authenticate, component, ...props }) => {
 };
 
 
-export default AuthRoute;
+export default AdminRoute;

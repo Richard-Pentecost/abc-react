@@ -9,41 +9,23 @@ const ProfileSideBar = props => (
       <span className='profileSideBarHeading__text'>Profile Settings</span>
     </div>
     <div className='profileSideBarLink'>
-      <NavLink 
-        to={{
-          pathname: '/settings/profile',
-          aboutProp: { title: 'Profile' }
-        }}
-        className='profileSideBarLink__link'
-      >Profile</NavLink>
+      <NavLink to='/settings/profile' className='profileSideBarLink__link'>Profile</NavLink>
     </div>
     <div className='profileSideBarLink'>
-      <NavLink 
-        to={{
-          pathname: '/settings/security',
-          aboutProp: { title: 'Change Password' },
-        }}
-        className='profileSideBarLink__link'
-      >Change Password</NavLink>
+      <NavLink to='/settings/security' className='profileSideBarLink__link'>Change Password</NavLink>
     </div>
-    <div className='profileSideBarLink'>
-      <NavLink 
-        to={{
-          pathname: '/settings/create-user',
-          aboutProp: { title: 'Create User' },
-        }}
-        className='profileSideBarLink__link'
-      >Create User</NavLink>
-    </div>
-    <div className='profileSideBarLink'>
-      <NavLink 
-        to={{
-          pathname: '/settings/users',
-          aboutProp: { title: 'Users' },
-        }}
-        className='profileSideBarLink__link'
-      >Users</NavLink>
-    </div>
+    { props.isAdmin ?
+      (
+        <>
+          <div className='profileSideBarLink'>
+            <NavLink to='/settings/create-user' className='profileSideBarLink__link'>Create User</NavLink>
+          </div>
+          <div className='profileSideBarLink'>
+            <NavLink to= '/settings/users' className='profileSideBarLink__link'>Users</NavLink>
+          </div>
+        </>
+      ) : null
+    }
   </div>
 )
 

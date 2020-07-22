@@ -11,8 +11,6 @@ import AuthRoute from './AuthRoute';
 import AddData from './AddData';
 import EditData from './EditData';
 import ProfilePage from './ProfilePage';
-import CreateUser from './CreateUser';
-import Users from './Users';
 import { logoutUser } from '../store/actions';
 import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -25,7 +23,7 @@ library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTr
 class App extends Component {
 
   isLoggedIn = () => {
-    return Boolean(this.props.user) && TokenManager.isTokenValid();
+    return Boolean(this.props.token) && TokenManager.isTokenValid();
   }
 
   render() {
@@ -34,6 +32,7 @@ class App extends Component {
         <NavBar 
           authenticate={this.isLoggedIn}
           onLogout={this.props.logoutUser}
+          token={this.props.token}
         />
         <Switch>
           <Route 
@@ -93,7 +92,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user,
+    token: state.auth.token,
   };
 };
 

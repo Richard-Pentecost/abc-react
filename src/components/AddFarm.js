@@ -28,11 +28,12 @@ class AddFarm extends Component {
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber } = this.props;
+    const { farmName, postcode, contactName, contactNumber, isAdmin } = this.props;
     return (
       <div className='addFarm'>
         <FarmForm 
           title='Add Farm'
+          isAdmin={isAdmin}
           farmName={farmName}
           postcode={postcode}
           contactName={contactName}
@@ -49,7 +50,10 @@ class AddFarm extends Component {
 
 const mapStateToProps = state => {
   const { farmName, postcode, contactName, contactNumber } = state.farmForm;
-  return { farmName, postcode, contactName, contactNumber };
+  return { 
+    farmName, postcode, contactName, contactNumber,
+    isAdmin: state.auth.token.permissionLevel === 'admin',  
+  };
 };
 
 const mapDispatchToProps = dispatch => {

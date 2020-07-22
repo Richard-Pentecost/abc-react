@@ -26,9 +26,14 @@
     background-color: $color-grey-light-1;
     padding: 1rem;
     border-radius: 0.5rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   
-  &__input:focus {
-    outline: none;
-  }
 }

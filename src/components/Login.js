@@ -10,8 +10,9 @@ class Login extends Component {
 
   onLoginUser = (event) => {
     event.preventDefault();
-    const { email, password, history } = this.props;
-    this.props.handleLoginUser(email, password, history);
+    const { email, password } = this.props;
+    this.props.handleLoginUser(email, password);
+    this.props.history.push('/home');
   };
 
   onEmailChange = event => {
@@ -77,7 +78,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleEmailChange: text => dispatch(actions.emailChanged(text)),
     handlePasswordChange: text => dispatch(actions.passwordChanged(text)),
-    handleLoginUser: (email, password, history) => dispatch(actions.loginUser({ email, password }, history)),
+    handleLoginUser: (email, password) => dispatch(actions.loginUser({ email, password })),
   };
 };
 // export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(Login);

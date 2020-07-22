@@ -69,7 +69,7 @@ export const createFarm = data => {
 export const editFarm = ({ farmName, postcode, contactName, contactNumber, id }) => {
   return async dispatch => {
     try {
-      const data = { farmName, postcode, contactName, contactNumber};
+      const data = { farmName, postcode, contactName, contactNumber };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${id}`, data, axiosHeaders);
       dispatch(initFarms());
