@@ -14,7 +14,10 @@ const DataForm = props => {
     handleCancel,
     btnText,
   } = props;
+  
+  const { acidData, chlorineData } = data;
 
+  // console.log(this.props.data);
   return (
     <form onSubmit={handleSubmitForm}>
       <div className='dataForm'>
@@ -30,95 +33,186 @@ const DataForm = props => {
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Product:</label>
-          <select name='product' value={data.product} onChange={handleInputChange} className='dataInput__input'>
-            <option value='blank'></option>
-            <option value='SFW Acid'>SFW Acid</option>
-            <option value='Chlorine'>Chlorine</option>
-            <option value='Acid1'>Acid1</option>
-            <option value='Acid2'>Acid2</option>
-          </select>
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <select name='acid-product' value={acidData.product} onChange={handleInputChange} className='dataInput__input'>
+                <option value='blank'></option>
+                <option value='SFW Acid'>SFW Acid</option>
+                <option value='Acid1'>Acid1</option>
+                <option value='Acid2'>Acid2</option>
+              </select>
+            </div>
+            <div className='dataInput__individualContainer'>
+              <select name='chlorine-product' value={chlorineData.product} onChange={handleInputChange} className='dataInput__input'>
+                <option value='Chlorine'>Chlorine</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Quantity:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='quantity'
-            value={data.quantity}
-            onChange={handleInputChange}  
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-quantity'
+                value={acidData.quantity}
+                onChange={handleInputChange}  
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-quantity'
+                value={chlorineData.quantity}
+                onChange={handleInputChange}  
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Meter Reading:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='meterReading'
-            value={data.meterReading}
-            onChange={handleInputChange}  
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-meterReading'
+                value={acidData.meterReading}
+                onChange={handleInputChange}  
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-meterReading'
+                value={chlorineData.meterReading}
+                onChange={handleInputChange}  
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Float Before Delivery:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='initialFloat'
-            value={data.initialFloat}
-            onChange={handleInputChange}  
-          />
-        </div>
-        <div className='dataInput'>
-          <label className='dataInput__label'>Water Usage:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='waterUsage'
-            value={data.waterUsage}
-            onChange={handleInputChange}  
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-initialFloat'
+                value={acidData.initialFloat}
+                onChange={handleInputChange}  
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-initialFloat'
+                value={chlorineData.initialFloat}
+                onChange={handleInputChange}  
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Pump Dial:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='pumpDial'
-            value={data.pumpDial}
-            onChange={handleInputChange}  
-            step='0.1'
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>  
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-pumpDial'
+                value={acidData.pumpDial}
+                onChange={handleInputChange}  
+                step='0.1'
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-pumpDial'
+                value={chlorineData.pumpDial}
+                onChange={handleInputChange}  
+                step='0.1'
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Float:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='float'
-            value={data.float}
-            onChange={handleInputChange}  
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>            
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-float'
+                value={acidData.float}
+                onChange={handleInputChange}  
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-float'
+                value={chlorineData.float}
+                onChange={handleInputChange}  
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Reading:</label>
-          <input 
-            className='dataInput__input'
-            type='number'
-            name='reading'
-            value={data.reading}
-            onChange={handleInputChange}  
-            step='0.1'
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='acid-reading'
+                value={acidData.reading}
+                onChange={handleInputChange}  
+                step='0.1'
+              />
+            </div> 
+            <div className='dataInput__individualContainer'>
+              <input 
+                className='dataInput__input'
+                type='number'
+                name='chlorine-reading'
+                value={chlorineData.reading}
+                onChange={handleInputChange}  
+                step='0.1'
+              />
+            </div>
+          </div>
         </div>
         <div className='dataInput'>
           <label className='dataInput__label'>Comments:</label>
-          <textarea
-            className='dataInput__comments'
-            rows='3'
-            name='comments'
-            value={data.comments}
-            onChange={handleInputChange}  
-          />
+          <div className='dataInput__container'>
+            <div className='dataInput__individualContainer'>
+              <textarea
+                className='dataInput__comments'
+                rows='3'
+                name='acid-comments'
+                value={acidData.comments}
+                onChange={handleInputChange}  
+              />
+            </div>
+            <div className='dataInput__individualContainer'>
+              <textarea
+                className='dataInput__comments'
+                rows='3'
+                name='chlorine-comments'
+                value={chlorineData.comments}
+                onChange={handleInputChange}  
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div className='btnContainer'>

@@ -9,19 +9,27 @@ const ProfileSideBar = props => (
       <span className='profileSideBarHeading__text'>Profile Settings</span>
     </div>
     <div className='profileSideBarLink'>
-      <NavLink to='/settings/profile' className='profileSideBarLink__link'>Profile</NavLink>
+      <NavLink to='/settings/profile' className='profileSideBarLink__link'>
+        <span className='profileSideBarLink__text'>Profile</span>
+      </NavLink>
     </div>
     <div className='profileSideBarLink'>
-      <NavLink to='/settings/security' className='profileSideBarLink__link'>Change Password</NavLink>
+      <NavLink to='/settings/security' className='profileSideBarLink__link'>
+        <span className='profileSideBarLink__text'>Change Password</span>
+      </NavLink>
     </div>
     { props.isAdmin ?
       (
         <>
           <div className='profileSideBarLink'>
-            <NavLink to='/settings/create-user' className='profileSideBarLink__link'>Create User</NavLink>
+            <NavLink to='/settings/create-user' className='profileSideBarLink__link'>
+              <span className='profileSideBarLink__text'>Create User</span>
+            </NavLink>
           </div>
           <div className='profileSideBarLink'>
-            <NavLink to= '/settings/users' className='profileSideBarLink__link'>Users</NavLink>
+            <NavLink to= '/settings/users' className='profileSideBarLink__link'>
+              <span className='profileSideBarLink__text'>Users</span>
+            </NavLink>
           </div>
         </>
       ) : null

@@ -30,7 +30,11 @@
     @media only screen and (min-width: $bp-large) {
       width: 25%;
     }
-
   }
-  
+}
+
+.error {
+  flex: 1;
+  font-size: 1.4rem;
+  text-align: center;
 }

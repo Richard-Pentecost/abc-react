@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.dataForm {
+  // border: 1px solid black;
+}
+
 .dataInput {
   display: flex;
   flex-direction: column;
@@ -10,6 +14,19 @@
     margin-right: 0.5rem;
     font-weight: 400;
     padding-left: 0.2rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__individualContainer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    // border: 1px solid black;
   }
 
   &__input {

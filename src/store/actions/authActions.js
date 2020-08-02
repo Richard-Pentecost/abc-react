@@ -5,7 +5,7 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER,
+  LOGIN_USER_START,
   LOGOUT_USER,
 } from './actionTypes';
 
@@ -24,6 +24,12 @@ export const passwordChanged = text => {
     payload: text,
   };
 };
+
+export const loginUserStart = () => {
+  return {
+    type: LOGIN_USER_START,
+  }
+}
 
 const loginUserSuccess = token => {
   return { 
@@ -49,14 +55,16 @@ export const loginUser = ({ email, password }) => {
     if (!email || !password) {
       dispatch(loginUserFail('Email and password required'));
     } else {
-      dispatch({ type: LOGIN_USER });
       try {
+        dispatch(loginUserStart());
         const response = await axios.post(URL, { email, password });
-        TokenManager.setToken(response.data.token);
-        const token = TokenManager.getTokenPayload();
-        dispatch(loginUserSuccess(token));
+        setTimeout(() => {
+          TokenManager.setToken(response.data.token);
+          const token = TokenManager.getTokenPayload();
+          dispatch(loginUserSuccess(token));
+        }, 2000);
       } catch (error) {
-        console.log('Error');
+        // console.log(error.response);
         dispatch(loginUserFail(error.response.data.error));
       };
     }

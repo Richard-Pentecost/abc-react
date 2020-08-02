@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import HeaderSection from './HeaderSection';
 import Input from './Input';
 import Button from './Button';
+import Alert from './Alert';
 import * as actions from '../store/actions';
 import '../style/CreateUser.scss';
 
@@ -10,25 +11,34 @@ class CreateUser extends Component {
 
   componentWillUnmount() {
     this.props.onClearForm();
+    this.props.onClearError();
+    this.props.onClearSuccessFlag();
+  };
+
+  componentDidUpdate() {
+    if (this.props.addUserSuccess) {
+      this.props.history.replace('/');
+    };  
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const { name, email, username, password, confirmPassword, permissionLevel } = this.props;
-      this.props.onCreateUser({ name, email, username, password, confirmPassword, permissionLevel });
-      this.props.history.push('/');
-    } catch (err) {
-      console.log(err.response);
-    };
+    const { name, email, username, password, confirmPassword, permissionLevel } = this.props;
+    this.props.onCreateUser({ name, email, username, password, confirmPassword, permissionLevel });
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
+    this.props.onClearError();
     this.props.onInputChange({ name, value });
   }
 
   render() { 
+    let errorAlert = null;
+    if (this.props.error) {
+      errorAlert = <Alert message={this.props.errorMessage} />;
+    };
+
     return (
       <>
         <HeaderSection>Create User</HeaderSection>
@@ -99,9 +109,10 @@ class CreateUser extends Component {
               </div>
             </div>
             <div className='createUser__btn'>
-              <Button text='Create User' />
+              <Button text='Create User' loading={this.props.showSpinner} />
             </div>
           </form>
+          {errorAlert}
         </div>
       </>
     )
@@ -110,7 +121,11 @@ class CreateUser extends Component {
 
 const mapStateToProps = state => {
   const { name, email, username, password, confirmPassword, permissionLevel } = state.userForm;
-  return { name, email, username, password, confirmPassword, permissionLevel };
+  const { showSpinner, error, errorMessage, addUserSuccess } = state.users;
+  return { 
+    name, email, username, password, confirmPassword, permissionLevel,
+    showSpinner, error, errorMessage, addUserSuccess,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -119,7 +134,9 @@ const mapDispatchToProps = dispatch => {
     onCreateUser: ({ name , email, username, password, confirmPassword, permissionLevel }) => {
       dispatch(actions.createUser({ name, email, username, password, confirmPassword, permissionLevel }));
     },
+    onClearSuccessFlag: () => dispatch(actions.clearUserSuccessFlag()),
     onClearForm: () => dispatch(actions.clearUserForm()),
+    onClearError: () => dispatch(actions.clearUserErrorMessage()),
   };
 };
 

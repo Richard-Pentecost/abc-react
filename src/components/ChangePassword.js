@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Input from './Input';
 import HeaderSection from './HeaderSection';
 import Button from './Button';
+import Alert from './Alert';
 import * as actions from '../store/actions';
 import '../style/ChangePassword.scss';
 
@@ -10,10 +11,19 @@ class ChangePassword extends Component {
 
   componentWillUnmount() {
     this.props.onClearForm();
-  }
+    this.props.onClearError();
+    this.props.onClearSuccessFlag();
+  };
+
+  componentDidUpdate() {
+    if (this.props.addUserSuccess) {
+      this.props.history.replace('/');
+    };
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
+    this.props.onClearError();
     this.props.onInputChange({ name, value });
   };
 
@@ -26,10 +36,14 @@ class ChangePassword extends Component {
       id: this.props.user.id,
     };
     this.props.onUpdatePassword(data);
-    this.props.history.replace('/');
   };
 
   render () {
+    let errorAlert = null;
+    if (this.props.error) {
+      errorAlert = <Alert message={this.props.errorMessage} />;
+    };
+
     return (
       <>
         <HeaderSection>Change Password</HeaderSection>
@@ -62,9 +76,10 @@ class ChangePassword extends Component {
               />
             </div>
             <div className='changePassword__btn'>
-              <Button text='Change Password' />
+              <Button text='Change Password' loading={this.props.showSpinner} />
             </div>
           </form>
+          {errorAlert}
         </div>
       </>
     )
@@ -74,9 +89,11 @@ class ChangePassword extends Component {
 
 const mapStateToProps = state => {
   const { oldPassword, password, confirmPassword} = state.userForm;
+  const { currentUser, showSpinner, error, errorMessage, addUserSuccess } = state.users;
   return { 
-    user: state.users.currentUser,
     oldPassword, password, confirmPassword, 
+    showSpinner, error, errorMessage, addUserSuccess,
+    user: currentUser,
   };
 };
 
@@ -84,8 +101,10 @@ const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.userUpdate({ prop: name, value })),
     onUpdatePassword: data => dispatch(actions.changePassword(data)),
+    onClearSuccessFlag: () => dispatch(actions.clearUserSuccessFlag()),
     onClearForm: () => dispatch(actions.clearUserForm()),
-  }
-}
+    onClearError: () => dispatch(actions.clearUserErrorMessage()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

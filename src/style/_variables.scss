@@ -17,9 +17,11 @@ $color-green-dark: #002a31;
 
 $color-green: #16aa56;
 
-// variables required for media queries
+// width variables required for media queries
 $bp-largest: 75em;        // 1200px -> 1200/16 = 75
 $bp-large: 68.75em;       // 1100px
+$bp-largeSmall: 62.5em;   // 1000px
+$bp-mediumLarge: 56.25em; // 900px 
 $bp-medium: 50em;         // 800px
-$bp-small: 37.5em;        // 600px
+$bp-small: 40.625em;        // 650px
 $bp-smallest: 31.25em;    // 500px

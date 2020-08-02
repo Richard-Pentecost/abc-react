@@ -15,6 +15,7 @@ const FarmForm = props => {
     handleInputChange,
     handleBack,
     btnText,
+    loading,
   } = props;
 
   return (
@@ -60,7 +61,7 @@ const FarmForm = props => {
           type="text"
           required
         />
-        <Button text={btnText} disabled={!isAdmin} />
+        <Button text={btnText} loading={loading} disabled={!isAdmin} />
       </form>
     </div>
   );

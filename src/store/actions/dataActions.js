@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import _ from 'lodash';
 import TokenManager from '../../utils/token-manager';
 
 const URL = 'http://localhost:3000/farms';
@@ -11,28 +12,48 @@ export const dataInputChange = ({ prop, value}) => {
   };
 };
 
-export const fetchDataSuccess = res => {
+const fetchDataSuccess = res => {
   return {
     type: actionTypes.FETCH_DATA_SUCCESS,
     payload: res,
   }
 };
 
-const fetchDataFail = () => {
-  return { type: actionTypes.FETCH_DATA_FAIL};
+const fetchDataFail = error => {
+  return { 
+    type: actionTypes.FETCH_DATA_FAIL,
+    payload: error,
+  };
 };
 
 const fetchDataStart = () => {
-  return { type: actionTypes.FETCH_DATA_START};
+  return { type: actionTypes.FETCH_DATA_START };
 }
 
 export const clearDataForm = () => {
   return { type: actionTypes.CLEAR_DATA_FORM };
 };
 
-const addDataFail = () => {
-  return { type: actionTypes.ADD_DATA_FAIL };
-}
+const addDataFail = error => {
+  return { 
+    type: actionTypes.ADD_DATA_FAIL,
+    payload: error, 
+  };
+};
+
+const addDataSuccess = () => {
+  return { 
+    type: actionTypes.ADD_DATA_SUCCESS,
+  };
+};
+
+export const clearDataSuccessFlag = () => {
+  return { type: actionTypes.CLEAR_DATA_SUCCESS_FLAG };
+};
+
+export const clearDataErrorMessage = () => {
+  return { type: actionTypes.CLEAR_DATA_ERROR_MESSAGE };
+};
 
 export const clearState = () => {
   return { type: actionTypes.CLEAR_DATA_STATE };
@@ -44,8 +65,8 @@ export const initData = (id, search = '') => {
       dispatch(fetchDataStart())
       const response = await axios.get(`${URL}/${id}/data/${search}`);
       dispatch(fetchDataSuccess(response.data));
-    } catch {
-      dispatch(fetchDataFail());
+    } catch (error) {
+      dispatch(fetchDataFail(error));
     };
   };
 };
@@ -55,10 +76,17 @@ export const addData = (data, id) => {
     try {
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.post(`${URL}/${id}/data`, data, axiosHeaders);
-      dispatch(clearDataForm())
+      dispatch(addDataSuccess());
     } catch (error) {
-      console.log(error);
-      dispatch(addDataFail())
+      const errors = error.response.data.errors;
+      const errArr = _.filter(errors, err => {
+        return err !== null
+      });
+      let errorMessage;
+      errArr.length === 0 ?
+        errorMessage = 'A network error has occured. Please try again'
+        : errorMessage = errArr[0];
+      dispatch(addDataFail(errorMessage));
     };
   };
 };
@@ -68,10 +96,17 @@ export const editData = (data, farmId, dataId) => {
     try {
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${farmId}/data/${dataId}`, data, axiosHeaders);
-      dispatch(initData(farmId));
-      dispatch(clearDataForm());
+      dispatch(addDataSuccess());
     } catch (error) {
-      console.log(error);
+      const errors = error.response.data.errors;
+      const errArr = _.filter(errors, err => {
+        return err !== null
+      });
+      let errorMessage;
+      errArr.length === 0 ?
+        errorMessage = 'A network error has occured. Please try again'
+        : errorMessage = errArr[0];
+      dispatch(addDataFail(errorMessage));
     }
   }
 };

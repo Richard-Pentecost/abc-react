@@ -4,7 +4,7 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER,
+  LOGIN_USER_START,
   LOGOUT_USER,
 } from '../actions/actionTypes';
 
@@ -19,10 +19,10 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case EMAIL_CHANGED:
-      return { ...state, email: action.payload };
+      return { ...state, email: action.payload, errorMessage: '' };
     case PASSWORD_CHANGED:
-      return { ...state, password: action.payload };
-    case LOGIN_USER:
+      return { ...state, password: action.payload, errorMessage: '' };
+    case LOGIN_USER_START:
       return { ...state, loading: true, errorMessage: '' };
     case LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, token: action.payload };

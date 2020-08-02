@@ -18,6 +18,12 @@ class ProfilePage extends Component {
     this.props.onInitUsers();
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.user !== this.props.user) {
+      this.props.onInitUsers();
+    };
+  };
+
   render() {
     const { path } = this.props.match;
     let content = <Spinner />;

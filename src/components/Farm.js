@@ -21,7 +21,6 @@ class Farm extends Component {
       'Quantity',
       'Meter Reading',
       'Float Before Reading',
-      'Water Usage',
       'Pump Dial',
       'Float',
       'Readings',
@@ -66,7 +65,7 @@ class Farm extends Component {
   handleClick = (input) => {
     const dataId = input._id;
     this.props.history.push({
-      pathname: `${this.props.location.pathname}/${dataId}`,
+      pathname: `${this.props.location.pathname}/edit-data/${dataId}`,
       state: { input }
     });
   };
@@ -108,6 +107,28 @@ class Farm extends Component {
   
   render() {
     const { data, loading, isAdmin } = this.props;
+    // let formattedDataArray;
+    // if (data) {
+    //   formattedDataArray = data.map(d => {
+    //     return {
+    //       '_id': d._id,
+    //       'farmId': d.farmId,
+    //       'data': {
+    //         'date': d.date,
+    //         'product': d.product,
+    //         'quantity': d.quantity,
+    //         'meterReading': d.meterReading,
+    //         'initialFloat': d.initialFloat,
+    //         'waterUsage': d.waterUsage,
+    //         'pumpDial': d.pumpDial,
+    //         'float': d.float,
+    //         'reading': d.reading,
+    //         'comments': d.comments,
+    //       },
+    //     };
+    //   });
+    // };
+
     const selectedFarm = this.selectedFarm();
     let farm;
     if (selectedFarm && data) {
@@ -168,7 +189,7 @@ class Farm extends Component {
                 { this.props.data.length === 0 ?
                     <div className='farmData__data__txt'>No data found</div> :
                     <Table 
-                      data={this.props.data} 
+                      data={data} 
                       tableHeadings={this.state.tableHeadings}
                       isAdmin={isAdmin}
                       deleteHandler={this.openModal}

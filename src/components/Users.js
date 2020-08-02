@@ -80,7 +80,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onInitUsers: () => dispatch(actions.initUsers()),
     onDeleteUser: id => dispatch(actions.deleteUser(id)),
   };
 };

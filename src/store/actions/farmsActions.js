@@ -1,19 +1,28 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import TokenManager from '../../utils/token-manager';
+import { errorHandler } from '../../utils/api-errors';
 
 const URL = 'http://localhost:3000/farms';
 
-const fetchFarmsSuccess = (res) => {
+export const farmInputChange = ({ prop, value }) => {
+  return {
+    type: actionTypes.FARM_INPUT_UPDATE,
+    payload: { prop, value },
+  };
+};
+
+const fetchFarmsSuccess = res => {
   return {
     type: actionTypes.FETCH_FARMS_SUCCESS,
     payload: res,
   };
 };
 
-const fetchFarmsFailed = () => {
+const fetchFarmsFail = error => {
   return {
-    type: actionTypes.FETCH_FARMS_FAILED,
+    type: actionTypes.FETCH_FARMS_FAIL,
+    payload: error,
   };
 };
 
@@ -29,16 +38,33 @@ export const clearFarmForm = () => {
   };
 };
 
-const addFarmFail = () => {
+const addFarmStart = () => {
+  return { 
+    type: actionTypes.ADD_FARM_START 
+  };
+};
+const addFarmFail = error => {
   return {
     type: actionTypes.ADD_FARM_FAIL,
+    payload: error,
   }
 }
 
-export const farmUpdate = ({ prop, value }) => {
+const addFarmSuccess = () => {
   return {
-    type: actionTypes.FARM_INPUT_UPDATE,
-    payload: { prop, value },
+    type: actionTypes.ADD_FARM_SUCCESS,
+  };
+};
+
+export const clearFarmSuccessFlag = () => {
+  return {
+    type: actionTypes.CLEAR_FARM_SUCCESS_FLAG,
+  };
+};
+
+export const clearFarmErrorMessage = () => {
+  return {
+    type: actionTypes.CLEAR_FARM_ERROR_MESSAGE,
   };
 };
 
@@ -49,7 +75,7 @@ export const initFarms = (search = '') => {
       const response = await axios.get(`${URL}/${search}`);
       dispatch(fetchFarmsSuccess(response.data));
     } catch (error) {
-      dispatch(fetchFarmsFailed());
+      dispatch(fetchFarmsFail(error));
     }
   };
 };
@@ -57,11 +83,15 @@ export const initFarms = (search = '') => {
 export const createFarm = data => {
   return async (dispatch) => {
     try {
+      dispatch(addFarmStart());
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.post(URL, data, axiosHeaders);
-      dispatch(clearFarmForm());
+      setTimeout(() => {
+        dispatch(addFarmSuccess());
+      }, 2000);
     } catch (error) {
-      dispatch(addFarmFail());
+      const errorMessage = errorHandler(error);
+      dispatch(addFarmFail(errorMessage));
     };
   };
 };
@@ -69,14 +99,17 @@ export const createFarm = data => {
 export const editFarm = ({ farmName, postcode, contactName, contactNumber, id }) => {
   return async dispatch => {
     try {
+      dispatch(addFarmStart());
       const data = { farmName, postcode, contactName, contactNumber };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${id}`, data, axiosHeaders);
-      dispatch(initFarms());
-      dispatch(clearFarmForm());
-      return;
+      setTimeout(() => {
+        dispatch(addFarmSuccess());
+        dispatch(initFarms());
+      }, 2000);
     } catch (error) {
-      dispatch(addFarmFail());
+      const errorMessage = errorHandler(error);
+      dispatch(addFarmFail(errorMessage));
     };
   }
 };

@@ -69,12 +69,13 @@ class Home extends Component {
 
 
   render() {
-    const { farms, loading, isAdmin } = this.props;
+    // console.log(this.props.errorMessage.message);
+    const { farms, loading, error, errorMessage, isAdmin } = this.props;
     let farmList;
     if (farms) {
       farmList = farms.map(farm => {
         return (
-          <div className='farmList__card' key={farm.farmName} >
+          <div className='farmList__card' key={farm._id} >
             <FarmCard 
               farm={farm} 
               isAdmin={isAdmin}
@@ -104,6 +105,7 @@ class Home extends Component {
           <SideBar query={this.buildQueryString} searchHandler={this.handleSearch}/>
         </div>
         <div className='farmList'>
+          { error ? <div className='error'>{errorMessage.message}</div> :  null}
           { loading ? <Spinner /> : farmList }
           {modal}
         </div>
@@ -113,11 +115,13 @@ class Home extends Component {
 };
 
 const mapStateToProps = state => {
+  const { farms, auth } = state;
   return {
-    farms: state.farms.farms,
-    error: state.farms.error,
-    loading: state.farms.loading,
-    isAdmin: state.auth.token.permissionLevel === 'admin',
+    farms: farms.farms,
+    loading: farms.loading,
+    error: farms.error,
+    errorMessage: farms.errorMessage,
+    isAdmin: auth.token.permissionLevel === 'admin',
   };
 };
 

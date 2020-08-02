@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Input from './Input';
 import Button from './Button';
+import Alert from './Alert';
 import HeaderSection from './HeaderSection';
 import * as actions from '../store/actions';
 import '../style/Profile.scss';
@@ -18,10 +19,13 @@ class Profile extends Component {
 
   componentWillUnmount() {
     this.props.onClearForm();
+    this.props.onClearError();
+    this.props.onClearSuccessFlag();
   }
 
   handleInputChange = event => {
     const { name, value } = event.target;
+    this.props.onClearError();
     this.props.onInputChange({ name, value });
   };
 
@@ -36,6 +40,11 @@ class Profile extends Component {
   };
 
   render() {
+    let errorAlert = null;
+    if (this.props.error) {
+      errorAlert = <Alert message={this.props.errorMessage} />
+    }
+  
     return (
       <>
         <HeaderSection>Profile</HeaderSection>
@@ -66,9 +75,10 @@ class Profile extends Component {
               />
             </div>
             <div className='profile__btn'>
-              <Button text='Update Profile' />
+              <Button text='Update Profile' loading={this.props.showSpinner} />
             </div>
           </form>
+          {errorAlert}
         </div>
       </>
     )
@@ -77,9 +87,11 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   const { name, username, email } = state.userForm;
+  const { currentUser, showSpinner, error, errorMessage, addUserSuccess } = state.users;
   return {
-    user: state.users.currentUser,
     name, username, email,
+    showSpinner, error, errorMessage, addUserSuccess,
+    user: currentUser, 
   };
 };
 
@@ -87,7 +99,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.userUpdate({ prop: name, value })),
     onUpdateUser: data => dispatch(actions.editUser(data)),
+    onClearSuccessFlag: () => dispatch(actions.clearUserSuccessFlag()),
     onClearForm: () => dispatch(actions.clearUserForm()),
+    onClearError: () => dispatch(actions.clearUserErrorMessage()),
   };
 };
 

@@ -26,8 +26,7 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password, errorMessage } = this.props;
-
+    const { email, password, errorMessage, loading } = this.props;
     let error;
 
     if (errorMessage) {
@@ -58,7 +57,7 @@ class Login extends Component {
             type='password'
             required
           />
-          <Button text='Login' /> 
+          <Button text='Login' loading={loading} /> 
           {error}
         </form>
       </div>
@@ -67,11 +66,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    email: state.auth.email,
-    password: state.auth.password,
-    errorMessage: state.auth.errorMessage,
-  };
+  const { email, password, loading, errorMessage } = state.auth;
+  return { email, password, loading, errorMessage };
 };
 
 const mapDispatchToProps = dispatch => {

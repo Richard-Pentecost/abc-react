@@ -14,11 +14,11 @@ import ProfilePage from './ProfilePage';
 import { logoutUser } from '../store/actions';
 import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faPhoneSquare, faPlus, faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPhoneSquare, faPlus, faSearch, faCaretDown, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard, faEdit, faTrashAlt, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import '../style/App.scss';
 
-library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt, faCaretDown);
+library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt, faCaretDown, faSpinner);
 
 class App extends Component {
 
@@ -75,7 +75,7 @@ class App extends Component {
           />
           <AuthRoute 
             exact
-            path="/farms/:id/:dataId"
+            path="/farms/:id/edit-data/:dataId"
             component={EditData}
             authenticate={this.isLoggedIn}
           />
