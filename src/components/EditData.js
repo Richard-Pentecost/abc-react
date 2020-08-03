@@ -9,9 +9,16 @@ import '../style/AddData.scss';
 class EditData extends Component {
   constructor(props) {
     super(props);
-    const selectedData = this.props.location.state.input.data;
-    _.each(selectedData, (value, name) => {
-      this.props.onInputChange({ name, value });
+    const selectedData = this.props.location.state.input;
+    const dataArr = _.filter(selectedData, (value, name) => {
+      return name === 'acidData' || name === 'chlorineData';
+    });
+    _.each(dataArr, (val, index) => {
+      _.each(val, (value, name) => {
+        let updatedName;
+        index === 0 ? updatedName = `acid-${name}` : updatedName =`chlorine-${name}`;
+        this.props.onInputChange({ name: updatedName, value });
+      })
     });
   };
 
@@ -39,13 +46,9 @@ class EditData extends Component {
   
   handleSave = event => {
     event.preventDefault();
-    const { date, product, quantity, meterReading, initialFloat,
-      waterUsage, pumpDial, float, reading, comments } = this.props.data;
-    const data = { date, product, quantity, meterReading, initialFloat,
-      waterUsage, pumpDial, float, reading, comments };
     const farmId = this.props.location.state.input.farmId;
     const dataId = this.props.location.state.input._id;
-    this.props.onEditData(data, farmId, dataId);
+    this.props.onEditData(this.props.data, farmId, dataId);
   }
 
   handleCancel = event => {

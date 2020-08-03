@@ -9,7 +9,8 @@ import '../style/AddFarm.scss';
 class EditFarm extends Component {
   constructor(props) {
     super(props);
-    const selectedFarm = this.props.location.aboutProp.selectedFarm;
+    console.log(this.props.location);
+    const selectedFarm = this.props.location.state.selectedFarm;
     _.each(selectedFarm, (value, name) => {
       this.props.onInputChange({ name, value });
     });
@@ -29,7 +30,7 @@ class EditFarm extends Component {
   handleEditFarm = event => {
     event.preventDefault();
     const { farmName, postcode, contactName, contactNumber } = this.props;
-    const id = this.props.location.aboutProp.selectedFarm._id;
+    const id = this.props.location.state.selectedFarm._id;
     this.props.onUpdateFarm({ farmName , postcode, contactName, contactNumber, id });
   };
 

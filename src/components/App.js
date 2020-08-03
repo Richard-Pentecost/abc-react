@@ -84,6 +84,7 @@ class App extends Component {
             component={ProfilePage}
             authenticate={this.isLoggedIn}
           />
+          <Redirect to ='/home' />
         </Switch>
       </div>
     );

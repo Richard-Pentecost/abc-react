@@ -34,7 +34,7 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
         <Link 
           to={{
             pathname: `farms/${farm._id}/edit`,
-            aboutProp: { selectedFarm: farm },
+            state: { selectedFarm: farm },
           }}
           onClick={event => event.stopPropagation()}
           className='farmCard__link'

@@ -15,9 +15,8 @@ const DataForm = props => {
     btnText,
   } = props;
   
-  const { acidData, chlorineData } = data;
+  const { acidData, chlorineData, date } = data;
 
-  // console.log(this.props.data);
   return (
     <form onSubmit={handleSubmitForm}>
       <div className='dataForm'>
@@ -25,7 +24,7 @@ const DataForm = props => {
           <label className='dataInput__label'>Date:</label>
           <DatePicker 
             name='date'
-            selected={moment(data.date).toDate()}
+            selected={moment(date).toDate()}
             dateFormat='dd/MM/yyyy'
             onChange={handleDateChange}
             className='dataInput__input'

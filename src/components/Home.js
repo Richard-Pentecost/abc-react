@@ -69,7 +69,6 @@ class Home extends Component {
 
 
   render() {
-    // console.log(this.props.errorMessage.message);
     const { farms, loading, error, errorMessage, isAdmin } = this.props;
     let farmList;
     if (farms) {

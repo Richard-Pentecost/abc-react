@@ -140,7 +140,7 @@ class Farm extends Component {
               <Link 
                 to={{
                   pathname: `${selectedFarm._id}/edit`,
-                  aboutProp: {selectedFarm}
+                  state: {selectedFarm}
                 }}
               >
                 <span className='farmHeader__link'><FontAwesomeIcon icon={['far', 'edit' ]} /></span>
@@ -194,6 +194,7 @@ class Farm extends Component {
                       isAdmin={isAdmin}
                       deleteHandler={this.openModal}
                       clickHandler={this.handleClick}
+                      farmFlag
                     />
                 }
               </div>
