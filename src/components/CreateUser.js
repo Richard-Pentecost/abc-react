@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import HeaderSection from './HeaderSection';
 import Input from './Input';
 import Button from './Button';
+import RadioButton from './RadioButton';
 import Alert from './Alert';
 import * as actions from '../store/actions';
 import '../style/CreateUser.scss';
@@ -29,7 +30,9 @@ class CreateUser extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value });
   }
 
@@ -84,30 +87,15 @@ class CreateUser extends Component {
               type="password"
               required
             />
-            <div className='radioBtn'>
-              <div className='radioBtn__btn'>
-                <label className='radioBtn__text'>User</label>
-                <input 
-                  className='radioBtn__input'
-                  type='radio' 
-                  value='user'
-                  name='permissionLevel' 
-                  checked={this.props.permissionLevel === 'user'} 
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className='radioBtn__btn'>
-                <label className='radioBtn__text'>Admin</label>
-                <input 
-                  className='radioBtn__input'
-                  type='radio' 
-                  value='admin'
-                  name='permissionLevel' 
-                  checked={this.props.permissionLevel === 'admin'} 
-                  onChange={this.handleInputChange}
-                />
-              </div>
-            </div>
+            <RadioButton 
+              name='permissionLevel'
+              input={this.props.permissionLevel}
+              firstLabel='User'
+              secondLabel='Admin'
+              firstValue='user'
+              secondValue='admin'
+              inputChange={this.handleInputChange}
+            />
             <div className='createUser__btn'>
               <Button text='Create User' loading={this.props.showSpinner} />
             </div>

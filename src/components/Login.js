@@ -57,7 +57,9 @@ class Login extends Component {
             type='password'
             required
           />
-          <Button text='Login' loading={loading} /> 
+          <div className='form__btn'>
+            <Button text='Login' loading={loading} /> 
+          </div>
           {error}
         </form>
       </div>

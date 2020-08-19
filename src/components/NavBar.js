@@ -54,7 +54,8 @@ class NavBar extends Component {
     return (
       <div className='navbar'>
         <div className='navbar__title'>
-          <Link to='/home' className='link'>ABC</Link>
+          {/* <Link to='/home' className='link'>ABC</Link> */}
+          <Link to='/home'><img src={abcLogo} alt='logo' className='logo'/></Link>
         </div>
         {authenticate() ? dropDown : null }
       </div>

@@ -2,7 +2,11 @@
 
 .profile {
   margin: 1rem auto;
-  width: 35rem;
+  width: 80%;
+
+  @media only screen and (min-width: $bp-smallest) {
+    width: 35rem;
+  }
 
   @media only screen and (min-width: $bp-medium) {
     padding: 0 1rem;

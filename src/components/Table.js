@@ -19,7 +19,10 @@ const Table = ({ data, tableHeadings, isAdmin, deleteHandler, clickHandler, farm
         { date ? <td className='tableBody__cell tableDate' >{moment(date).format('DD-MM-YYYY')}</td> : null }
         {
           Object.keys(rowData).map(inputKey => {
-            return <td className='tableBody__cell' key={inputKey}>{rowData[inputKey]}</td>;
+            let data = rowData[inputKey];
+            
+            inputKey === 'deliveryDate' && rowData[inputKey] ? data = moment(rowData[inputKey]).format('DD-MM-YYYY') : data = rowData[inputKey];
+            return <td className='tableBody__cell' key={inputKey}>{data}</td>;
           })
 
         }

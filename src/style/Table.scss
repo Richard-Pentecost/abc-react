@@ -3,6 +3,8 @@
 .tableContainer {
   background: $color-white;
   padding: 1rem;
+  max-width: 100vw;
+  overflow-y: scroll;
 }
 
 .table {

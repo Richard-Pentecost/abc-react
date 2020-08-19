@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from './Input'
 import Button from './Button';
+import RadioButton from './RadioButton';
 import '../style/FarmForm.scss';
 
 const FarmForm = props => {
@@ -11,6 +12,7 @@ const FarmForm = props => {
     postcode,
     contactName,
     contactNumber,
+    deliveryMethod,
     handleSubmitForm,
     handleInputChange,
     handleBack,
@@ -60,6 +62,15 @@ const FarmForm = props => {
           name='contactNumber'
           type="text"
           required
+        />
+        <RadioButton 
+          name='deliveryMethod'
+          input={deliveryMethod}
+          firstLabel='Tank'
+          secondLabel='Drum'
+          firstValue='tank'
+          secondValue='drum'
+          inputChange={handleInputChange}
         />
         <Button text={btnText} loading={loading} disabled={!isAdmin} />
       </form>

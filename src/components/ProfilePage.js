@@ -19,7 +19,7 @@ class ProfilePage extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
+    if (prevProps.user !== this.props.user && prevProps.user) {
       this.props.onInitUsers();
     };
   };

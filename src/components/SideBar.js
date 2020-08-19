@@ -32,27 +32,4 @@ class SideBar extends Component {
   };
 }
 
-
-{/* 
-    <ul>
-      <li>
-        <Link to={query('query', { contactName: 'Sophie Pentecost' })}>Sophie Pentecost</Link>
-      </li>
-      <li>
-        <Link to={query('query', { contactName: 'Richard Pentecost' })}>Richard Pentecost</Link>
-      </li>
-      <li>
-        <Link to={query('query', { contactName: 'Sophie Edenborough' })}>Sophie Edenborough</Link>
-      </li>
-      <li>
-        <Link to={query('query', { contactName: 'Pent' })}>Sophie</Link>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <Link to={query('sort', { postcode: 1 })}>sort alphabetically</Link>
-      </li>
-    </ul>
-*/}
-
 export default withRouter(SideBar);

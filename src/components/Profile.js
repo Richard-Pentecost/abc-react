@@ -25,7 +25,9 @@ class Profile extends Component {
 
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value });
   };
 

@@ -24,6 +24,8 @@ class Farm extends Component {
       'Pump Dial',
       'Float',
       'Readings',
+      'Kg Actual',
+      'Delivery Date',
       'Comments',
       ''
     ],
@@ -64,9 +66,15 @@ class Farm extends Component {
 
   handleClick = (input) => {
     const dataId = input._id;
+    const selectedFarm = this.selectedFarm();
+    const previousDataIndex = this.props.data.indexOf(input) + 1;
     this.props.history.push({
       pathname: `${this.props.location.pathname}/edit-data/${dataId}`,
-      state: { input }
+      state: { 
+        input,
+        data: this.props.data[previousDataIndex],
+        deliveryMethod: selectedFarm.deliveryMethod,
+      }
     });
   };
 
@@ -107,28 +115,6 @@ class Farm extends Component {
   
   render() {
     const { data, loading, isAdmin } = this.props;
-    // let formattedDataArray;
-    // if (data) {
-    //   formattedDataArray = data.map(d => {
-    //     return {
-    //       '_id': d._id,
-    //       'farmId': d.farmId,
-    //       'data': {
-    //         'date': d.date,
-    //         'product': d.product,
-    //         'quantity': d.quantity,
-    //         'meterReading': d.meterReading,
-    //         'initialFloat': d.initialFloat,
-    //         'waterUsage': d.waterUsage,
-    //         'pumpDial': d.pumpDial,
-    //         'float': d.float,
-    //         'reading': d.reading,
-    //         'comments': d.comments,
-    //       },
-    //     };
-    //   });
-    // };
-
     const selectedFarm = this.selectedFarm();
     let farm;
     if (selectedFarm && data) {
@@ -136,7 +122,9 @@ class Farm extends Component {
         <>
           <div className='farmHeader'>
             <div className='farmHeader__title'>
-              <div className='farmHeader__text'>{selectedFarm.farmName}</div>
+              <span className='farmHeader__text'>
+                {selectedFarm.farmName}
+              </span>
               <Link 
                 to={{
                   pathname: `${selectedFarm._id}/edit`,
@@ -178,7 +166,11 @@ class Farm extends Component {
                   <AppButton 
                     handleClick={() => this.props.history.push({
                       pathname: `${this.props.location.pathname}/add-data`,
-                      state: { id: selectedFarm._id }
+                      state: { 
+                        id: selectedFarm._id,
+                        data: this.props.data[0],
+                        deliveryMethod: selectedFarm.deliveryMethod,
+                      }
                     })} 
                     text='Add Data'
                     icon='plus'

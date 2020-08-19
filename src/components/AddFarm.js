@@ -21,18 +21,21 @@ class AddFarm extends Component {
 
   handleAddFarm = event => {
     event.preventDefault();
-    const { farmName, postcode, contactName, contactNumber } = this.props;
-    this.props.onCreateFarm({ farmName, postcode, contactName, contactNumber })
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod} = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod };
+    this.props.onCreateFarm(farmData);
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value });
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber, isAdmin, error, errorMessage, loading } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, isAdmin, error, errorMessage, loading } = this.props;
     
     let errorAlert = null;
     if (error) {
@@ -48,6 +51,7 @@ class AddFarm extends Component {
           postcode={postcode}
           contactName={contactName}
           contactNumber={contactNumber}
+          deliveryMethod={deliveryMethod}
           handleInputChange={this.handleInputChange}
           handleSubmitForm={this.handleAddFarm}
           handleBack={() => this.props.history.goBack()}
@@ -61,10 +65,10 @@ class AddFarm extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farmName, postcode, contactName, contactNumber } = state.farmForm;
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod } = state.farmForm;
   const { loading, error, errorMessage, addFarmSuccess } = state.farms;
   return { 
-    farmName, postcode, contactName, contactNumber,
+    farmName, postcode, contactName, contactNumber, deliveryMethod,
     error, errorMessage, addFarmSuccess, loading,
     isAdmin: state.auth.token.permissionLevel === 'admin',  
   };
@@ -73,9 +77,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.farmInputChange({ prop: name, value })),
-    onCreateFarm: ({ farmName , postcode, contactName, contactNumber }) => {
-      dispatch(actions.createFarm({ farmName , postcode, contactName, contactNumber }));
-    },
+    onCreateFarm: data =>  dispatch(actions.createFarm(data)),
     onClearSuccessFlag: () => dispatch(actions.clearFarmSuccessFlag()),
     onClearForm: () => dispatch(actions.clearFarmForm()),
     onClearError: () => dispatch(actions.clearFarmErrorMessage()),

@@ -58,11 +58,9 @@ export const loginUser = ({ email, password }) => {
       try {
         dispatch(loginUserStart());
         const response = await axios.post(URL, { email, password });
-        setTimeout(() => {
-          TokenManager.setToken(response.data.token);
-          const token = TokenManager.getTokenPayload();
-          dispatch(loginUserSuccess(token));
-        }, 2000);
+        TokenManager.setToken(response.data.token);
+        const token = TokenManager.getTokenPayload();
+        dispatch(loginUserSuccess(token));
       } catch (error) {
         // console.log(error.response);
         dispatch(loginUserFail(error.response.data.error));

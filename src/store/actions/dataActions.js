@@ -71,11 +71,12 @@ export const initData = (id, search = '') => {
   };
 };
 
-export const addData = (data, id) => {
+export const addData = (data, previousData, id) => {
   return async dispatch => {
     try {
+      const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-      await axios.post(`${URL}/${id}/data`, data, axiosHeaders);
+      await axios.post(`${URL}/${id}/data`, dataObj, axiosHeaders);
       dispatch(addDataSuccess());
     } catch (error) {
       const errors = error.response.data.errors;
@@ -91,11 +92,12 @@ export const addData = (data, id) => {
   };
 };
 
-export const editData = (data, farmId, dataId) => {
+export const editData = (data, previousData, farmId, dataId) => {
   return async dispatch => {
     try {
+      const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-      await axios.patch(`${URL}/${farmId}/data/${dataId}`, data, axiosHeaders);
+      await axios.patch(`${URL}/${farmId}/data/${dataId}`, dataObj, axiosHeaders);
       dispatch(addDataSuccess());
     } catch (error) {
       const errors = error.response.data.errors;

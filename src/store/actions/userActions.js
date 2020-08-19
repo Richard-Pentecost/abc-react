@@ -125,10 +125,8 @@ export const createUser = data => {
         dispatch(addUserStart());
         const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
         await axios.post(URL, userData, axiosHeaders);
-        setTimeout(() => {
-          dispatch(addUserSuccess());
-          dispatch(initUsers());
-        }, 2000);
+        dispatch(addUserSuccess());
+        dispatch(initUsers());
       } catch (error) {
         const errorMessage = errorHandler(error);
         dispatch(addUserFail(errorMessage));
@@ -144,10 +142,8 @@ export const editUser = ({ name, username, id }) => {
       const data = { name, username };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${id}/profile`, data, axiosHeaders);
-      setTimeout(() => {
-        dispatch(addUserSuccess());
-        dispatch(fetchUser(id));
-      }, 2000);
+      dispatch(addUserSuccess());
+      dispatch(fetchUser(id));
     } catch (error) {
       const errorMessage = errorHandler(error);
       dispatch(addUserFail(errorMessage));
@@ -166,9 +162,7 @@ export const changePassword = data => {
         dispatch(addUserStart());
         const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
         await axios.patch(`${URL}/${id}/security`, passwordData, axiosHeaders);
-        setTimeout(() => {
-          dispatch(addUserSuccess());
-        }, 2000);
+        dispatch(addUserSuccess());
       } catch (error) {
         const errorMessage = errorHandler(error);
         dispatch(addUserFail(errorMessage));

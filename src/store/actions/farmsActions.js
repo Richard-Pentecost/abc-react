@@ -86,9 +86,7 @@ export const createFarm = data => {
       dispatch(addFarmStart());
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.post(URL, data, axiosHeaders);
-      setTimeout(() => {
-        dispatch(addFarmSuccess());
-      }, 2000);
+      dispatch(addFarmSuccess());
     } catch (error) {
       const errorMessage = errorHandler(error);
       dispatch(addFarmFail(errorMessage));
@@ -96,17 +94,14 @@ export const createFarm = data => {
   };
 };
 
-export const editFarm = ({ farmName, postcode, contactName, contactNumber, id }) => {
+export const editFarm = (data, id) => {
   return async dispatch => {
     try {
       dispatch(addFarmStart());
-      const data = { farmName, postcode, contactName, contactNumber };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${id}`, data, axiosHeaders);
-      setTimeout(() => {
-        dispatch(addFarmSuccess());
-        dispatch(initFarms());
-      }, 2000);
+      dispatch(addFarmSuccess());
+      dispatch(initFarms());
     } catch (error) {
       const errorMessage = errorHandler(error);
       dispatch(addFarmFail(errorMessage));

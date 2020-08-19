@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import DataForm from './DataForm';
 import Alert from './Alert';
 import * as actions from '../store/actions';
@@ -20,19 +21,33 @@ class AddData extends Component {
 
   handleInputChange = event => {    
     const { name, value } = event.target;
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value})
   };
 
   handleDateChange = date => {
-    this.props.onClearError();
-    this.props.onInputChange({ name: 'date', value: date });
+    if (this.props.error) {
+      this.props.onClearError();
+    };
+    this.props.onInputChange({ name: 'date', value: moment(date).startOf('day') });
   };
 
   handleSave = event => {
     event.preventDefault();
+    const { data, deliveryMethod } = this.props.location.state;
     const id = this.props.location.state.id;
-    this.props.onAddData(this.props.data, id);
+    let previousDate;
+    let previousAcidFloat;
+    let previousChlorineFloat;
+    if (data) {
+      previousDate = data.date;
+      previousAcidFloat = data.acidData.float;
+      previousChlorineFloat = data.chlorineData.float;
+    }
+    const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, deliveryMethod };
+    this.props.onAddData(this.props.data, previousData, id);
   };
 
   handleCancel = event => {
@@ -72,7 +87,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.dataInputChange({ prop: name, value })),
-    onAddData: (data, id) => dispatch(actions.addData(data, id)),
+    onAddData: (data, previousData, id) => dispatch(actions.addData(data, previousData, id)),
     onClearForm: () => dispatch(actions.clearDataForm()),
     onClearSuccessFlag: () => dispatch(actions.clearDataSuccessFlag()),
     onClearError: () => dispatch(actions.clearDataErrorMessage()),

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import moment from 'moment';
 import DataForm from './DataForm';
 import Alert from './Alert';
 import * as actions from '../store/actions';
@@ -13,6 +14,9 @@ class EditData extends Component {
     const dataArr = _.filter(selectedData, (value, name) => {
       return name === 'acidData' || name === 'chlorineData';
     });
+    
+    this.props.onInputChange({ name: 'date', value: selectedData.date });
+
     _.each(dataArr, (val, index) => {
       _.each(val, (value, name) => {
         let updatedName;
@@ -35,20 +39,35 @@ class EditData extends Component {
 
   handleInputChange = event => {    
     const { name, value } = event.target; 
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value})
   };
 
   handleDateChange = date => {
-    this.props.onClearError();
-    this.props.onInputChange({ name: 'date', value: date });
+    if (this.props.error) {
+      this.props.onClearError();
+    };
+    this.props.onInputChange({ name: 'date', value: moment(date).startOf('day') });
   };
   
   handleSave = event => {
     event.preventDefault();
+    const { data, deliveryMethod } = this.props.location.state;
     const farmId = this.props.location.state.input.farmId;
     const dataId = this.props.location.state.input._id;
-    this.props.onEditData(this.props.data, farmId, dataId);
+
+    let previousDate;
+    let previousAcidFloat;
+    let previousChlorineFloat;
+    if (data) {
+      previousDate = data.date;
+      previousAcidFloat = data.acidData.float;
+      previousChlorineFloat = data.chlorineData.float;
+    }
+    const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, deliveryMethod};
+    this.props.onEditData(this.props.data, previousData, farmId, dataId);
   }
 
   handleCancel = event => {
@@ -89,7 +108,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.dataInputChange({ prop: name, value })),
-    onEditData: (data, farmId, dataId) => dispatch(actions.editData(data, farmId, dataId)),
+    onEditData: (data, previousData, farmId, dataId) => dispatch(actions.editData(data, previousData, farmId, dataId)),
     onClearForm: () => dispatch(actions.clearDataForm()),
     onClearSuccessFlag: () => dispatch(actions.clearDataSuccessFlag()),
     onClearError: () => dispatch(actions.clearDataErrorMessage()),

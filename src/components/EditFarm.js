@@ -9,7 +9,6 @@ import '../style/AddFarm.scss';
 class EditFarm extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location);
     const selectedFarm = this.props.location.state.selectedFarm;
     _.each(selectedFarm, (value, name) => {
       this.props.onInputChange({ name, value });
@@ -24,24 +23,27 @@ class EditFarm extends Component {
   componentDidUpdate() {
     if (this.props.addFarmSuccess){
       this.props.history.goBack();
-    } 
-  }
+    }; 
+  };
 
   handleEditFarm = event => {
     event.preventDefault();
-    const { farmName, postcode, contactName, contactNumber } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod } = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod };
     const id = this.props.location.state.selectedFarm._id;
-    this.props.onUpdateFarm({ farmName , postcode, contactName, contactNumber, id });
+    this.props.onUpdateFarm(farmData, id);
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.props.onClearError();
+    if (this.props.error) {
+      this.props.onClearError();
+    };
     this.props.onInputChange({ name, value });
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber, error, errorMessage, loading } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, error, errorMessage, loading } = this.props;
     
     let errorAlert = null;
     if (error) {
@@ -57,6 +59,7 @@ class EditFarm extends Component {
           postcode={postcode}
           contactName={contactName}
           contactNumber={contactNumber}
+          deliveryMethod={deliveryMethod}
           handleInputChange={this.handleInputChange}
           handleSubmitForm={this.handleEditFarm}
           handleBack={() => this.props.history.goBack()}
@@ -70,10 +73,10 @@ class EditFarm extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farmName, postcode, contactName, contactNumber } = state.farmForm;
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod } = state.farmForm;
   const { loading, error, errorMessage, addFarmSuccess } = state.farms;
   return { 
-    farmName, postcode, contactName, contactNumber, 
+    farmName, postcode, contactName, contactNumber, deliveryMethod,
     error, errorMessage, addFarmSuccess, loading,
   };
 };
@@ -81,9 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.farmInputChange({ prop: name, value })),
-    onUpdateFarm: ({ farmName , postcode, contactName, contactNumber, id }) => {
-      dispatch(actions.editFarm({ farmName , postcode, contactName, contactNumber, id }));
-    },
+    onUpdateFarm: (data, id ) =>  dispatch(actions.editFarm(data, id )),
     onClearSuccessFlag: () => dispatch(actions.clearFarmSuccessFlag()),
     onClearForm: () => dispatch(actions.clearFarmForm()),
     onClearError: () => dispatch(actions.clearFarmErrorMessage()),
