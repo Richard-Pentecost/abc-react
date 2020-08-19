@@ -1,83 +1,87 @@
 import React, { Component } from 'react';
-import Input from './Input';
-import Button from './Button';
-import axios from 'axios';
-import TokenManager from '../utils/token-manager';
-import '../style/AddFarm.css';
+import { connect } from 'react-redux';
+import FarmForm from './FarmForm';
+import Alert from './Alert';
+import * as actions from '../store/actions';
+import '../style/AddFarm.scss';
 
-const URL = 'http://localhost:3000/farms';
 
 class AddFarm extends Component {
-  state = {
-    farmName: '',
-    postcode: '',
-    contactName: '',
-    contactNumber: '',
+
+  componentWillUnmount() {
+    this.props.onClearForm();
+    this.props.onClearSuccessFlag();
   };
-  
 
-  handleAddFarm = async (event) => {
-    event.preventDefault();
-    try {
-      const { farmName, postcode, contactName, contactNumber } = this.state;
-      const postData = { farmName, postcode, contactName, contactNumber };
-      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-
-      await axios.post(URL, postData, axiosHeaders);
-      this.props.history.push('/home');
-    } catch (err) {
-      console.log(err.response);
+  componentDidUpdate() {
+    if (this.props.addFarmSuccess) {
+      this.props.history.goBack();
     };
+  };
+
+  handleAddFarm = event => {
+    event.preventDefault();
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod} = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod };
+    this.props.onCreateFarm(farmData);
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name] : value });
+    if (this.props.error) {
+      this.props.onClearError();
+    };
+    this.props.onInputChange({ name, value });
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber } = this.state;
-    console.log(this.props);
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, isAdmin, error, errorMessage, loading } = this.props;
+    
+    let errorAlert = null;
+    if (error) {
+      errorAlert = <Alert message={errorMessage} />;
+    };
+
     return (
       <div className='addFarm'>
-        <form onSubmit={this.handleAddFarm}>
-          <Input
-            input={farmName}
-            inputChange={this.handleInputChange} 
-            label='Farm Name'
-            name='farmName'
-            type="text"
-            required
-          />
-          <Input
-            input={postcode}
-            inputChange={this.handleInputChange} 
-            label='Postcode'
-            name='postcode'
-            type="text"
-            required
-          />
-          <Input
-            input={contactName}
-            inputChange={this.handleInputChange} 
-            label='Contact Name'
-            name='contactName'
-            type="text"
-            required
-          />
-          <Input
-            input={contactNumber}
-            inputChange={this.handleInputChange} 
-            label='Contact Number'
-            name='contactNumber'
-            type="text"
-            required
-          />
-          <Button text='Add Farm'/>
-        </form>
+        <FarmForm 
+          title='Add Farm'
+          isAdmin={isAdmin}
+          farmName={farmName}
+          postcode={postcode}
+          contactName={contactName}
+          contactNumber={contactNumber}
+          deliveryMethod={deliveryMethod}
+          handleInputChange={this.handleInputChange}
+          handleSubmitForm={this.handleAddFarm}
+          handleBack={() => this.props.history.goBack()}
+          btnText='Add Farm'
+          loading={loading}
+        />
+        {errorAlert}
       </div>
     );
   };
 };
 
-export default AddFarm;
+const mapStateToProps = state => {
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod } = state.farmForm;
+  const { loading, error, errorMessage, addFarmSuccess } = state.farms;
+  return { 
+    farmName, postcode, contactName, contactNumber, deliveryMethod,
+    error, errorMessage, addFarmSuccess, loading,
+    isAdmin: state.auth.token.permissionLevel === 'admin',  
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onInputChange: ({ name, value }) => dispatch(actions.farmInputChange({ prop: name, value })),
+    onCreateFarm: data =>  dispatch(actions.createFarm(data)),
+    onClearSuccessFlag: () => dispatch(actions.clearFarmSuccessFlag()),
+    onClearForm: () => dispatch(actions.clearFarmForm()),
+    onClearError: () => dispatch(actions.clearFarmErrorMessage()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddFarm);

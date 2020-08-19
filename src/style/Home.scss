@@ -1,0 +1,40 @@
+@import './variables.scss';
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.farmList {
+  margin: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: wrap;
+
+  &__card {
+    width: 100%;
+
+    @media only screen and (min-width: $bp-smallest) {
+      width: 50%;
+    }
+
+    @media only screen and (min-width: $bp-medium) {
+      width: (1/3)*100%;
+    }
+    
+    @media only screen and (min-width: $bp-large) {
+      width: 25%;
+    }
+  }
+}
+
+.error {
+  flex: 1;
+  font-size: 1.4rem;
+  text-align: center;
+}

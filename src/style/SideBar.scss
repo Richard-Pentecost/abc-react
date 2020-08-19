@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+.sideBar {
+  padding: 1rem 0;
+  margin: 0 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid $color-grey;
+
+  &__spacing{
+    flex: 1;
+  }
+
+  &__search {
+    display: flex;
+    flex: 2;
+    justify-content: flex-start;
+    padding: 0 2rem;
+  }
+
+  &__btn {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+}

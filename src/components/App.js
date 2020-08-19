@@ -1,39 +1,29 @@
 import React, { Component } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NavBar from './NavBar';
 import Login from './Login';
 import Home from './Home';
 import AddFarm from './AddFarm';
 import Farm from './Farm';
+import EditFarm from './EditFarm';
 import AuthRoute from './AuthRoute';
+import AddData from './AddData';
+import EditData from './EditData';
+import ProfilePage from './ProfilePage';
+import { logoutUser } from '../store/actions';
 import TokenManager from '../utils/token-manager';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faPhoneSquare } from '@fortawesome/free-solid-svg-icons'
-import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
-import '../style/App.css';
+import { faUser, faPhoneSquare, faPlus, faSearch, faCaretDown, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faAddressCard, faEdit, faTrashAlt, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
+import '../style/App.scss';
 
-library.add(faAddressCard, faUser, faPhoneSquare);
+library.add(faAddressCard, faUser, faPhoneSquare, faEdit, faPlus, faSearch, faTrashAlt, faCalendarAlt, faCaretDown, faSpinner);
 
 class App extends Component {
-  state = {
-    user: TokenManager.isTokenValid() ? TokenManager.getTokenPayload() : null
-  };
-
-  onLogin = () => {
-    this.setState({
-      user: TokenManager.getTokenPayload(),
-    });
-  };
-
-  handleLogout = () => {
-    TokenManager.removeToken();
-    this.setState({
-      user: null,
-    });
-  };
 
   isLoggedIn = () => {
-    return Boolean(this.state.user) && TokenManager.isTokenValid();
+    return Boolean(this.props.token) && TokenManager.isTokenValid();
   }
 
   render() {
@@ -41,49 +31,70 @@ class App extends Component {
       <div className="App">
         <NavBar 
           authenticate={this.isLoggedIn}
-          onLogout={this.handleLogout}
+          onLogout={this.props.logoutUser}
+          token={this.props.token}
         />
         <Switch>
           <Route 
             exact
             path="/"
-            render={props => (this.state.user ?
+            render={props => (this.isLoggedIn() ?
               <Redirect to='/home' /> :
-              <Login {...props} onLogin={this.onLogin}/>
+              <Login {...props} />
             )}
           />
           <AuthRoute
             exact
             path="/home"
-            user={this.state.user}
             component={Home}
             authenticate={this.isLoggedIn}
           />
           <AuthRoute 
             exact
             path="/add-farm"
-            user={this.state.user}
             component={AddFarm}
             authenticate={this.isLoggedIn}
           />
           <AuthRoute 
             exact
-            path="/farm/:id"
-            user={this.state.user}
+            path="/farms/:id"
             component={Farm}
             authenticate={this.isLoggedIn}
           />
           <AuthRoute 
             exact
-            path="/farm/:id/edit"
-            user={this.state.user}
-            component={AddFarm}
+            path="/farms/:id/edit"
+            component={EditFarm}
             authenticate={this.isLoggedIn}
           />
+          <AuthRoute 
+            exact
+            path="/farms/:id/add-data"
+            component={AddData}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute 
+            exact
+            path="/farms/:id/edit-data/:dataId"
+            component={EditData}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute 
+            path="/settings"
+            component={ProfilePage}
+            authenticate={this.isLoggedIn}
+          />
+          <Redirect to ='/home' />
         </Switch>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps, { logoutUser })(App);

@@ -1,4 +1,4 @@
-
+@import './variables.scss';
 @import url('https://fonts.googleapis.com/css?family=Raleway:700&display=swap');
 
 *,
@@ -10,8 +10,12 @@
 }
 
 html {
-  font-size: 62.5%; /* defines 1rem as 10px */
+  font-size: 50%; 
   box-sizing: border-box;
+
+  @media only screen and (min-width: $bp-small) {
+    font-size: 62.5%; /* defines 1rem as 10px */
+  }
 }
 body {
   font-family: "Roboto", "Segoe UI", "Oxygen",
@@ -19,5 +23,6 @@ body {
     sans-serif;
   font-weight: 300;
   line-height: 1.5;
-  background: #f5f5f5;
+  background: $color-grey-light-2;
+  color: $color-grey-dark-1;
 }
