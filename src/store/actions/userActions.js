@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 import TokenManager from '../../utils/token-manager';
 import { errorHandler } from '../../utils/api-errors';
 
-const URL = 'https://abc-app-api.herokuapp.com/users'
+// const URL = 'https://abc-app-api.herokuapp.com/users';
+const URL = 'http://localhost:3000/users';
 
 const fetchUsersSuccess = res => {
   return {
@@ -153,7 +154,6 @@ export const editUser = ({ name, username, id }) => {
 
 export const changePassword = data => {
   const { confirmNewPassword, id, ...passwordData } = data;
-
   return async dispatch => {
     if (confirmNewPassword !== passwordData.newPassword) {
       dispatch(addUserFail('Passwords must match'));
