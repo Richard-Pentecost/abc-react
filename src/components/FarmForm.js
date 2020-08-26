@@ -13,6 +13,7 @@ const FarmForm = props => {
     contactName,
     contactNumber,
     deliveryMethod,
+    comments,
     handleSubmitForm,
     handleInputChange,
     handleBack,
@@ -63,6 +64,16 @@ const FarmForm = props => {
           type="text"
           required
         />
+        <div className='commentBox'>
+          <label className='commentBox__label'>Comments:</label>
+          <textarea 
+            className='commentBox__comments'
+            rows='2'
+            name='comments'
+            value={comments}
+            onChange={handleInputChange}
+          />
+        </div>
         <RadioButton 
           name='deliveryMethod'
           input={deliveryMethod}
@@ -72,6 +83,7 @@ const FarmForm = props => {
           secondValue='drum'
           inputChange={handleInputChange}
         />
+        
         <Button text={btnText} loading={loading} disabled={!isAdmin} />
       </form>
     </div>

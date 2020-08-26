@@ -31,7 +31,6 @@ class Login extends Component {
 
     if (errorMessage) {
       error = (
-        // <div className='error'>{errorMessage}</div>
         <Alert message={errorMessage}/>
       );
     } else {

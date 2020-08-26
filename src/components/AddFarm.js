@@ -21,8 +21,8 @@ class AddFarm extends Component {
 
   handleAddFarm = event => {
     event.preventDefault();
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod} = this.props;
-    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod };
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod, comments };
     this.props.onCreateFarm(farmData);
   };
 
@@ -35,7 +35,7 @@ class AddFarm extends Component {
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod, isAdmin, error, errorMessage, loading } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments, isAdmin, error, errorMessage, loading } = this.props;
     
     let errorAlert = null;
     if (error) {
@@ -52,6 +52,7 @@ class AddFarm extends Component {
           contactName={contactName}
           contactNumber={contactNumber}
           deliveryMethod={deliveryMethod}
+          comments={comments}
           handleInputChange={this.handleInputChange}
           handleSubmitForm={this.handleAddFarm}
           handleBack={() => this.props.history.goBack()}
@@ -65,10 +66,10 @@ class AddFarm extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farmName, postcode, contactName, contactNumber, deliveryMethod } = state.farmForm;
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = state.farmForm;
   const { loading, error, errorMessage, addFarmSuccess } = state.farms;
   return { 
-    farmName, postcode, contactName, contactNumber, deliveryMethod,
+    farmName, postcode, contactName, contactNumber, deliveryMethod, comments,
     error, errorMessage, addFarmSuccess, loading,
     isAdmin: state.auth.token.permissionLevel === 'admin',  
   };

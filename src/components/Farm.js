@@ -20,7 +20,7 @@ class Farm extends Component {
       'Product',
       'Quantity',
       'Meter Reading',
-      'Float Before Reading',
+      'Float Before Delivery',
       'Pump Dial',
       'Float',
       'Readings',

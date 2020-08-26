@@ -28,8 +28,8 @@ class EditFarm extends Component {
 
   handleEditFarm = event => {
     event.preventDefault();
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod } = this.props;
-    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod };
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod, comments };
     const id = this.props.location.state.selectedFarm._id;
     this.props.onUpdateFarm(farmData, id);
   };
@@ -43,7 +43,7 @@ class EditFarm extends Component {
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod, error, errorMessage, loading } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments, error, errorMessage, loading } = this.props;
     
     let errorAlert = null;
     if (error) {
@@ -60,6 +60,7 @@ class EditFarm extends Component {
           contactName={contactName}
           contactNumber={contactNumber}
           deliveryMethod={deliveryMethod}
+          comments={comments}
           handleInputChange={this.handleInputChange}
           handleSubmitForm={this.handleEditFarm}
           handleBack={() => this.props.history.goBack()}
@@ -73,10 +74,10 @@ class EditFarm extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farmName, postcode, contactName, contactNumber, deliveryMethod } = state.farmForm;
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = state.farmForm;
   const { loading, error, errorMessage, addFarmSuccess } = state.farms;
   return { 
-    farmName, postcode, contactName, contactNumber, deliveryMethod,
+    farmName, postcode, contactName, contactNumber, deliveryMethod, comments,
     error, errorMessage, addFarmSuccess, loading,
   };
 };

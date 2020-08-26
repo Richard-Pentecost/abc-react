@@ -9,8 +9,7 @@ const INITIAL_STATE = {
   contactName: '',
   contactNumber: '',
   deliveryMethod: 'tank',
-  // acidFactor: 2.85,
-  // chlorineFactor: 2.35,
+  comments: '',
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

@@ -166,22 +166,20 @@ const DataForm = props => {
             <label className='dataInput__label'>Reading:</label>
             <input 
               className='dataInput__input'
-              type='number'
+              type='text'
               name='acid-reading'
               value={acidData.reading}
               onChange={handleInputChange}  
-              step='0.1'
             />
           </div> 
           <div className='dataInput__container'>
             <label className='dataInput__label'>Reading:</label>
             <input 
               className='dataInput__input'
-              type='number'
+              type='text'
               name='chlorine-reading'
               value={chlorineData.reading}
               onChange={handleInputChange}  
-              step='0.1'
             />
           </div>
         </div>
