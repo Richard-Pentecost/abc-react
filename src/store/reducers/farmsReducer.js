@@ -46,6 +46,7 @@ const addFarmStart = state => {
 const addFarmSuccess = state => {
   return {
     ...state,
+    loading: false,
     addFarmSuccess: true,
   };
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/AppButton.scss';
 
-const AppButton = ({ handleClick, text, icon, classes, hide }) => {
+const AppButton = ({ handleClick, text, icon, classes, hide, loading }) => {
   let additionalClass;
   switch (classes) {
     case 'small red':
@@ -20,7 +20,7 @@ const AppButton = ({ handleClick, text, icon, classes, hide }) => {
     hideClass = 'appBtn__hide';
   }
   return (
-    <button className={`appBtn ${additionalClass}`} onClick={handleClick}>
+    <button className={`appBtn ${additionalClass}`} onClick={handleClick} disabled={loading}>
       { icon ? 
         <span className='appBtn__icon'><FontAwesomeIcon icon={icon}/></span>
         : null

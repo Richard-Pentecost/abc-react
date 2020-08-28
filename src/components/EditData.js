@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import DataForm from './DataForm';
 import Alert from './Alert';
+import Loading from './Loading';
 import * as actions from '../store/actions';
 import '../style/AddData.scss';
 
@@ -61,12 +62,16 @@ class EditData extends Component {
     let previousDate;
     let previousAcidFloat;
     let previousChlorineFloat;
+    let previousAcidDeliveryDate;
+    let previousChlorineDeliveryDate;
     if (data) {
       previousDate = data.date;
       previousAcidFloat = data.acidData.float;
       previousChlorineFloat = data.chlorineData.float;
+      previousAcidDeliveryDate = data.acidData.deliveryDate;
+      previousChlorineDeliveryDate = data.chlorineData.deliveryDate;
     }
-    const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, deliveryMethod};
+    const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, previousAcidDeliveryDate, previousChlorineDeliveryDate, deliveryMethod};
     this.props.onEditData(this.props.data, previousData, farmId, dataId);
   }
 
@@ -80,6 +85,10 @@ class EditData extends Component {
     if (this.props.error) {
       errorAlert = <Alert message={this.props.errorMessage} />
     };
+    let loading = null;
+    if (this.props.loading) {
+      loading = <Loading />
+    };
 
     return (
       <div className='formContainer'>
@@ -90,17 +99,19 @@ class EditData extends Component {
           handleSubmitForm={this.handleSave}
           handleCancel={this.handleCancel}
           btnText='Save'
+          loading={this.props.loading}
         />
         {errorAlert}
+        {loading}
       </div>
     );
   };
 };
 
 const mapStateToProps = state => {
-  const { error, errorMessage, addDataSuccess } = state.data;
+  const { error, errorMessage, addDataSuccess, loading } = state.data;
   return { 
-    error, errorMessage, addDataSuccess,
+    error, errorMessage, addDataSuccess, loading,
     data: state.dataForm,
   };
 };

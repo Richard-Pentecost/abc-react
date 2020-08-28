@@ -13,6 +13,7 @@ const DataForm = props => {
     handleSubmitForm,
     handleCancel,
     btnText,
+    loading,
   } = props;
   
   const { acidData, chlorineData, date } = data;
@@ -208,10 +209,12 @@ const DataForm = props => {
       </div>
       <div className='btnContainer'>
         <AppButton 
+          loading={loading}
           handleClick={handleSubmitForm}
           text={btnText}
         />
         <AppButton 
+          loading={loading}
           handleClick={handleCancel}
           text='Cancel'
           classes='medium red'

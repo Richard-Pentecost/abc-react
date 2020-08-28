@@ -32,11 +32,20 @@ const fetchDataFail = (state, action) => {
   };
 };
 
-const addDataSuccess = state => {
+const addDataStart = state => {
   return {
     ...state,
     error: false,
     errorMessage: '',
+    loading: true,
+    addDataSuccess: false,
+  }
+}
+
+const addDataSuccess = state => {
+  return {
+    ...state,
+    loading: false,
     addDataSuccess: true,
   };
 };
@@ -44,6 +53,7 @@ const addDataSuccess = state => {
 const addDataFail = (state, action) => {
   return {
     ...state,
+    loading: false,
     error: true,
     errorMessage: action.payload,
   };
@@ -69,6 +79,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.FETCH_DATA_START: return fetchDataStart(state);
     case actionTypes.FETCH_DATA_SUCCESS: return fetchDataSuccess(state, action);
     case actionTypes.FETCH_DATA_FAIL: return fetchDataFail(state, action);
+    case actionTypes.ADD_DATA_START: return addDataStart(state);
     case actionTypes.ADD_DATA_SUCCESS: return addDataSuccess(state);
     case actionTypes.ADD_DATA_FAIL: return addDataFail(state, action);
     case actionTypes.CLEAR_DATA_SUCCESS_FLAG: return clearDataSuccessFlag(state);

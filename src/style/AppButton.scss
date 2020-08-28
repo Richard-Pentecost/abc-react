@@ -22,6 +22,10 @@
     outline: none;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &__icon {
     padding: 0 5px;
   }

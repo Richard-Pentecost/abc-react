@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 import _ from 'lodash';
 import TokenManager from '../../utils/token-manager';
 
-const URL = 'https://abc-app-api.herokuapp.com/farms';
+// const URL = 'https://abc-app-api.herokuapp.com/farms';
+const URL = 'http://localhost:3000/farms';
 
 export const dataInputChange = ({ prop, value}) => {
   return {
@@ -34,6 +35,9 @@ export const clearDataForm = () => {
   return { type: actionTypes.CLEAR_DATA_FORM };
 };
 
+const addDataStart = () => {
+  return { type: actionTypes.ADD_DATA_START}
+}
 const addDataFail = error => {
   return { 
     type: actionTypes.ADD_DATA_FAIL,
@@ -74,6 +78,7 @@ export const initData = (id, search = '') => {
 export const addData = (data, previousData, id) => {
   return async dispatch => {
     try {
+      dispatch(addDataStart());
       const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.post(`${URL}/${id}/data`, dataObj, axiosHeaders);
@@ -95,6 +100,7 @@ export const addData = (data, previousData, id) => {
 export const editData = (data, previousData, farmId, dataId) => {
   return async dispatch => {
     try {
+      dispatch(addDataStart());
       const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
       await axios.patch(`${URL}/${farmId}/data/${dataId}`, dataObj, axiosHeaders);
