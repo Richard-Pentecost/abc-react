@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import AppButton from './AppButton';
 import SearchBar from './SearchBar';
 import '../style/SideBar.scss';
@@ -15,7 +15,11 @@ class SideBar extends Component {
   render() {
     return (
       <div className='sideBar'>
-        <div className='sideBar__spacing'></div>
+        <div className='sideBar__sort'>
+          <Link to={this.props.query('sort', { lastVisit: -1 })}>Last Visited</Link>
+          <Link to={this.props.query('sort', { acidDeliveryDate: -1 })}>Next Acid Delivery</Link>
+          <Link to={this.props.query('sort', { chlorineDeliveryDate: -1 })}>Next Chlorine Delivery</Link>
+        </div>
         <div className='sideBar__search'>
           <SearchBar searchHandler={this.props.searchHandler} />
         </div>

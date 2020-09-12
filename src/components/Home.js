@@ -67,8 +67,8 @@ class Home extends Component {
     });
   }
 
-
   render() {
+    console.log(this.props.farms);
     const { farms, loading, error, errorMessage, isAdmin } = this.props;
     let farmList;
     if (farms) {
