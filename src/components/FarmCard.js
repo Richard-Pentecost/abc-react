@@ -14,12 +14,13 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
 
   return (
     <div className='farmCard' onClick={clickHandler}>
+      <div className='farmCard__main'>
       <div className='farmCard__header'>
         {farm.farmName}
       </div>
-      <div className='farmCard__main'>
+      <div className='farmCard__body'>
         <div className='farmCard__info'>
-          <div className='farmCard__col'>
+          <div className='farmCard__row'>
             <div className='farmCard__item'>
               <span><FontAwesomeIcon icon={[ 'far', 'address-card' ]} /></span>
               <span className="farmCard__text">{farm.postcode}</span>
@@ -47,7 +48,6 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
               <span className='farmCard__text'>{farm.chlorineDeliveryDate ? moment(farm.chlorineDeliveryDate).format('ddd, DD-MMM-YYYY') : 'n/a' }</span>
             </div>
           </div>
-          
           { 
             farm.comments ? (
               <div className='farmCard__item'>
@@ -57,28 +57,29 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
             ) : null
           }
         </div>
-        <div className='farmCard__btnContainer'>
-          <Link 
-            to={{
-              pathname: `farms/${farm._id}/edit`,
-              state: { selectedFarm: farm },
-            }}
-            onClick={event => event.stopPropagation()}
-            className='farmCard__link'
-          >
-            Edit Farm Details
-          </Link>
-          {
-            isAdmin ? (
-              <AppButton 
-                handleClick={event => onDelete(event)} 
-                text='Delete'
-                icon={[ 'far', 'trash-alt' ]}
-                classes='small red'
-              />
-            ) : null
-          }
-        </div>
+      </div>
+      </div>
+      <div className='farmCard__btnContainer'>
+        <Link 
+          to={{
+            pathname: `farms/${farm._id}/edit`,
+            state: { selectedFarm: farm },
+          }}
+          onClick={event => event.stopPropagation()}
+          className='farmCard__link'
+        >
+          Edit Farm Details
+        </Link>
+        {
+          isAdmin ? (
+            <AppButton 
+              handleClick={event => onDelete(event)} 
+              text='Delete'
+              icon={[ 'far', 'trash-alt' ]}
+              classes='small red'
+            />
+          ) : null
+        }
       </div>
     </div>
   );

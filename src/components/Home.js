@@ -39,11 +39,8 @@ class Home extends Component {
     const currentQueryParams = qs.parse(search, { ignoreQueryPrefix: true });
     const newQueryParams = {
       ...currentQueryParams,
-      [operation]: JSON.stringify({
-        ...JSON.parse(currentQueryParams[operation] || '{}'),
-        ...valueObj,
-      })
-    };
+      [operation]: JSON.stringify(valueObj),
+    }
     return qs.stringify(newQueryParams, { addQueryPrefix: true, encode: false });
   }
 
@@ -68,7 +65,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.farms);
     const { farms, loading, error, errorMessage, isAdmin } = this.props;
     let farmList;
     if (farms) {

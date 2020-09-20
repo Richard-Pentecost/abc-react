@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AppButton from './AppButton';
 import SearchBar from './SearchBar';
 import '../style/SideBar.scss';
@@ -8,17 +8,35 @@ class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValue: '',
+      sortValue: '',
     };
   };
+
+  handleChange = (event) => {
+    const { value } = event.target;
+    this.setState({ sortValue: value}); 
+    if (value !== '') {
+      const url = this.props.query('sort', value);
+      this.props.history.push(url);
+    } else {
+      this.props.history.push('/home');
+    }
+  }
 
   render() {
     return (
       <div className='sideBar'>
         <div className='sideBar__sort'>
-          <Link to={this.props.query('sort', { lastVisit: -1 })}>Last Visited</Link>
-          <Link to={this.props.query('sort', { acidDeliveryDate: -1 })}>Next Acid Delivery</Link>
-          <Link to={this.props.query('sort', { chlorineDeliveryDate: -1 })}>Next Chlorine Delivery</Link>
+          <label className='sideBar__label'>Sort By:</label>
+          <select name='sort' value={this.state.sortValue} onChange={this.handleChange} className='sideBar__select'>
+            <option value=''>No Sort</option>
+            <option value='lastVisit'>Last Visited Ascending</option>
+            <option value='-lastVisit'>Last Visited Descending</option>
+            <option value='acidDeliveryDate'>Next Acid Delivery Ascending</option>
+            <option value='-acidDeliveryDate'>Next Acid Delivery Descending</option>
+            <option value='chlorineDeliveryDate'>Next Chlorine Delivery Ascending</option>
+            <option value='-chlorineDeliveryDate'>Next Chlorine Delivery Descending</option>
+          </select>
         </div>
         <div className='sideBar__search'>
           <SearchBar searchHandler={this.props.searchHandler} />
