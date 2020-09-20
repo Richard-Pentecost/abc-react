@@ -147,6 +147,14 @@ class Farm extends Component {
                 <label>Postcode: </label>
                 <span>{selectedFarm.postcode}</span>
               </div>
+              {
+                selectedFarm.accessCodes ? (
+                  <div>
+                    <label>Access Codes: </label>
+                    <span>{selectedFarm.accessCodes}</span>
+                  </div>
+                ) : null
+              }
             </div>
           </div>
           <div className='farmData'>

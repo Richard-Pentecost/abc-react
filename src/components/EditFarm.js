@@ -20,16 +20,16 @@ class EditFarm extends Component {
     this.props.onClearSuccessFlag();
   };
   
-  componentDidUpdate() {
-    if (this.props.addFarmSuccess){
+  componentDidUpdate(prevProps) {
+    if (this.props.addFarmSuccess && !prevProps.addFarmSuccess) {
       this.props.history.goBack();
     }; 
   };
 
   handleEditFarm = event => {
     event.preventDefault();
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = this.props;
-    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod, comments };
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, accessCodes, comments } = this.props;
+    const farmData = { farmName, postcode, contactName, contactNumber, deliveryMethod, accessCodes, comments };
     const id = this.props.location.state.selectedFarm._id;
     this.props.onUpdateFarm(farmData, id);
   };
@@ -43,7 +43,7 @@ class EditFarm extends Component {
   };
 
   render() {
-    const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments, error, errorMessage, loading } = this.props;
+    const { farmName, postcode, contactName, contactNumber, deliveryMethod, accessCodes, comments, error, errorMessage, loading } = this.props;
     
     let errorAlert = null;
     if (error) {
@@ -60,6 +60,7 @@ class EditFarm extends Component {
           contactName={contactName}
           contactNumber={contactNumber}
           deliveryMethod={deliveryMethod}
+          accessCodes={accessCodes}
           comments={comments}
           handleInputChange={this.handleInputChange}
           handleSubmitForm={this.handleEditFarm}
@@ -74,10 +75,10 @@ class EditFarm extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farmName, postcode, contactName, contactNumber, deliveryMethod, comments } = state.farmForm;
+  const { farmName, postcode, contactName, contactNumber, deliveryMethod, accessCodes, comments } = state.farmForm;
   const { loading, error, errorMessage, addFarmSuccess } = state.farms;
   return { 
-    farmName, postcode, contactName, contactNumber, deliveryMethod, comments,
+    farmName, postcode, contactName, contactNumber, deliveryMethod, accessCodes, comments,
     error, errorMessage, addFarmSuccess, loading,
   };
 };

@@ -43,7 +43,7 @@ class Login extends Component {
           <Input
             input={email}
             inputChange={this.onEmailChange} 
-            label='Email'
+            label='Username or Email'
             name='email'
             type="text"
             required

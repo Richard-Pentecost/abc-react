@@ -4,14 +4,17 @@
   border: 1px solid $color-grey;
   cursor: pointer;
   padding: 0.5rem;
-  margin: 0.5rem;
+  margin: 0 0.5rem;
   border-radius: 1px;
   background: $color-white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media only screen and (min-width: $bp-smallest) {
     padding: 1rem;
   }
-
 
   &__header {
     border-bottom: 1px solid $color-grey;
@@ -20,27 +23,56 @@
 
     @media only screen and (min-width: $bp-smallest) {
       font-size: 2rem;
+      margin-bottom: 1rem;
     }
   }
 
-  &__info {
-    font-size: 1.2rem;
-    padding: 0.2rem;
+  &__body {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: space-between;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+
+    @media only screen and (min-width: $bp-smallest) {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    @media only screen and (min-width: 400px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     @media only screen and (min-width: $bp-smallest) {
       flex-direction: column;
-      padding: 1rem 0;
-      font-size: 1.4rem;
+      justify-content: flex-start;
     }
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   &__item {
     @media only screen and (min-width: $bp-smallest) {
       padding-bottom: 0.5rem;
     }
+  }
+
+  &__label {
+    font-weight: 600;
   }
 
   &__text {

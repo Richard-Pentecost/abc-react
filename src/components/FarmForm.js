@@ -13,6 +13,7 @@ const FarmForm = props => {
     contactName,
     contactNumber,
     deliveryMethod,
+    accessCodes,
     comments,
     handleSubmitForm,
     handleInputChange,
@@ -64,6 +65,16 @@ const FarmForm = props => {
           type="text"
           required
         />
+        <div className='commentBox'>
+          <label className='commentBox__label'>Access Codes:</label>
+          <textarea 
+            className='commentBox__comments'
+            rows='2'
+            name='accessCodes'
+            value={accessCodes}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className='commentBox'>
           <label className='commentBox__label'>Comments:</label>
           <textarea 

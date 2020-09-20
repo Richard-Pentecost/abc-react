@@ -20,11 +20,14 @@ const Table = ({ data, tableHeadings, isAdmin, deleteHandler, clickHandler, farm
         {
           Object.keys(rowData).map(inputKey => {
             let data = rowData[inputKey];
-            
-            inputKey === 'deliveryDate' && rowData[inputKey] ? data = moment(rowData[inputKey]).format('ddd, DD-MM-YYYY') : data = rowData[inputKey];
-            return <td className='tableBody__cell' key={inputKey}>{data}</td>;
+            let additionalClass;
+            inputKey === 'comments' && rowData[inputKey] ? additionalClass = 'tableComment' : additionalClass = '';
+            if (inputKey === 'deliveryDate' && rowData[inputKey]) {
+              data = moment(rowData[inputKey]).format('ddd, DD-MM-YYYY');
+              additionalClass = 'tableDate';
+            }
+            return <td className={`tableBody__cell ${additionalClass}`} key={inputKey}>{data}</td>;
           })
-
         }
         <td className='tableBody__cell' style={disableDeleteButton}>
           <div onClick={(event) => {
