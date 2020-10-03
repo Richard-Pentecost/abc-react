@@ -218,7 +218,7 @@ class Farm extends Component {
     return (
       <div className='farmContainer'>
         { loading ? <Spinner /> : farm }
-        {modal}
+        { modal }
       </div>
     )
   }

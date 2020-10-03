@@ -12,6 +12,28 @@ class SideBar extends Component {
     };
   };
 
+  componentDidMount() {
+    const searchString = this.props.location.search
+    if (searchString) {
+      const search = this.extractSearchString(searchString);
+      this.setState({ sortValue: search })
+    }
+  }
+  
+  componentDidUpdate(prevProps) {
+    const searchString = this.props.location.search
+    if (prevProps.location.search !== searchString && searchString === '') {
+      this.setState({ sortValue:  '' })
+    }
+  }
+
+  extractSearchString = (searchString) => {
+    const index = searchString.indexOf('=')
+    const stringLength = searchString.length
+    const search = searchString.substring(index + 4, stringLength - 3)
+    return search
+  }
+
   handleChange = (event) => {
     const { value } = event.target;
     this.setState({ sortValue: value}); 
@@ -24,6 +46,8 @@ class SideBar extends Component {
   }
 
   render() {
+    // console.log(this.state.sortValue)
+    // console.log(this.props.history)
     return (
       <div className='sideBar'>
         <div className='sideBar__sort'>

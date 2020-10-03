@@ -15,7 +15,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    this.props.onInitFarms();
+    const { search } = this.props.location;
+    this.props.onInitFarms(search);
   };
 
   componentDidUpdate(prevProps) {
