@@ -80,8 +80,8 @@ class Farm extends Component {
 
   componentDidUpdate(prevProps) {
     const { search } = this.props.location;
+    const id = this.props.match.params.id;
     if (search !== prevProps.location.search) {
-      const id = this.props.match.params.id;
       this.props.onInitData(id, search);
     };
   };
@@ -237,6 +237,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onInitFarms: () => dispatch(actions.initFarms()),
+    onUpdateFarm: (data, id) => dispatch(actions.editFarm(data, id)),
     onInitData: (id, search) => dispatch(actions.initData(id, search)),
     onClearState: () => dispatch(actions.clearState()),
     onDeleteData: (farmId, dataId) => dispatch(actions.deleteData(farmId, dataId)),

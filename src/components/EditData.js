@@ -71,12 +71,14 @@ class EditData extends Component {
       previousAcidDeliveryDate = data.acidData.deliveryDate;
       previousChlorineDeliveryDate = data.chlorineData.deliveryDate;
     }
-    const farmData = { 
-      lastVisit: this.props.data.date,
-      acidDeliveryDate: this.props.data.acidData.deliveryDate,
-      chlorineDeliveryDate: this.props.data.chlorineData.deliveryDate,
-    };
-    this.props.onUpdateFarm(farmData, farmId);
+    // const farmData = { 
+    //   lastVisit: this.props.data.date,
+    //   acidDeliveryDate: this.props.data.acidData.deliveryDate,
+    //   chlorineDeliveryDate: this.props.data.chlorineData.deliveryDate,
+    // };
+    // console.log('edit before')
+    // this.props.onUpdateFarm(farmData, farmId);
+    // console.log('edit after')
     const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, previousAcidDeliveryDate, previousChlorineDeliveryDate, deliveryMethod};
     this.props.onEditData(this.props.data, previousData, farmId, dataId);
   }
@@ -126,7 +128,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.dataInputChange({ prop: name, value })),
     onEditData: (data, previousData, farmId, dataId) => dispatch(actions.editData(data, previousData, farmId, dataId)),
-    onUpdateFarm: (data, id ) =>  dispatch(actions.editFarm(data, id )),
+    // onUpdateFarm: (data, id ) =>  dispatch(actions.editFarm(data, id )),
     onClearForm: () => dispatch(actions.clearDataForm()),
     onClearSuccessFlag: () => dispatch(actions.clearDataSuccessFlag()),
     onClearError: () => dispatch(actions.clearDataErrorMessage()),

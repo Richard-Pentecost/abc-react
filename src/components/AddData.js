@@ -39,6 +39,7 @@ class AddData extends Component {
     event.preventDefault();
     const { data, deliveryMethod } = this.props.location.state;
     const id = this.props.location.state.id;
+
     let previousDate;
     let previousAcidFloat;
     let previousChlorineFloat;
@@ -51,6 +52,16 @@ class AddData extends Component {
       previousAcidDeliveryDate = data.acidData.deliveryDate;
       previousChlorineDeliveryDate = data.chlorineData.deliveryDate;
     }
+    // console.log('id: ',  id)
+    // console.log('location: ', this.props.location)
+    // console.log('match: ', this.props.match);
+
+    // const farmData = {
+    //   lastVisit: this.props.data.date,
+    //   acidDeliveryDate: this.props.data.acidData.deliveryDate,
+    //   chlorineDeliveryDate: this.props.data.chlorineData.deliveryDate,
+    // };
+    // this.props.onUpdateFarm(farmData, id);
     const previousData = { previousDate, previousAcidFloat, previousChlorineFloat, previousAcidDeliveryDate, previousChlorineDeliveryDate, deliveryMethod };
     this.props.onAddData(this.props.data, previousData, id);  
   };
@@ -100,6 +111,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onInputChange: ({ name, value }) => dispatch(actions.dataInputChange({ prop: name, value })),
     onAddData: (data, previousData, id) => dispatch(actions.addData(data, previousData, id)),
+    // onUpdateFarm: (data, id) => dispatch(actions.editFarm(data, id)),
     onClearForm: () => dispatch(actions.clearDataForm()),
     onClearSuccessFlag: () => dispatch(actions.clearDataSuccessFlag()),
     onClearError: () => dispatch(actions.clearDataErrorMessage()),

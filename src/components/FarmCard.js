@@ -37,15 +37,15 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
           <div className='farmCard__col'>
             <div className='farmCard__item'>
               <span className='farmCard__label'>Last Visit:</span>
-              <span className='farmCard__text'>{farm.lastVisit ? moment(farm.lastVisit).format('ddd, DD-MMM-YYYY') : 'n/a'}</span>
+              <span className='farmCard__text'>{farm.data && farm.data.lastVisit ? moment(farm.data.lastVisit).format('ddd, DD-MMM-YYYY') : 'n/a'}</span>
             </div>
             <div className='farmCard__item'>
               <span className='farmCard__label'>Next Acid Delivery:</span>
-              <span className='farmCard__text'>{farm.acidDeliveryDate ? moment(farm.acidDeliveryDate).format('ddd, DD-MMM-YYYY') : 'n/a'}</span>
+              <span className='farmCard__text'>{farm.data && farm.data.acidDeliveryDate ? moment(farm.data.acidDeliveryDate).format('ddd, DD-MMM-YYYY') : 'n/a'}</span>
             </div>
             <div className='farmCard__item'>
               <span className='farmCard__label'>Next Chlorine Delivery:</span>
-              <span className='farmCard__text'>{farm.chlorineDeliveryDate ? moment(farm.chlorineDeliveryDate).format('ddd, DD-MMM-YYYY') : 'n/a' }</span>
+              <span className='farmCard__text'>{farm.data && farm.data.chlorineDeliveryDate ? moment(farm.data.chlorineDeliveryDate).format('ddd, DD-MMM-YYYY') : 'n/a' }</span>
             </div>
           </div>
           { 

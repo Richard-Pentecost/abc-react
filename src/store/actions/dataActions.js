@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import { editFarm } from './farmsActions';
 import _ from 'lodash';
 import TokenManager from '../../utils/token-manager';
 
@@ -80,8 +81,16 @@ export const addData = (data, previousData, id) => {
       dispatch(addDataStart());
       const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-      await axios.post(`${URL}/${id}/data`, dataObj, axiosHeaders);
+      const response = await axios.post(`${URL}/${id}/data`, dataObj, axiosHeaders);
       dispatch(addDataSuccess());
+      const farmData = { 
+        data: {
+          lastVisit: response.data.date, 
+          acidDeliveryDate: response.data.acidData.deliveryDate,
+          chlorineDeliveryDate: response.data.chlorineData.deliveryDate,
+        },
+      };
+      dispatch(editFarm(farmData, id))
     } catch (error) {
       const errors = error.response.data.errors;
       const errArr = _.filter(errors, err => {
@@ -102,8 +111,16 @@ export const editData = (data, previousData, farmId, dataId) => {
       dispatch(addDataStart());
       const dataObj = { ...data, ...previousData };
       const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
-      await axios.patch(`${URL}/${farmId}/data/${dataId}`, dataObj, axiosHeaders);
+      const response = await axios.patch(`${URL}/${farmId}/data/${dataId}`, dataObj, axiosHeaders);
       dispatch(addDataSuccess());
+      const farmData = { 
+        data: {
+          lastVisit: response.data.date, 
+          acidDeliveryDate: response.data.acidData.deliveryDate,
+          chlorineDeliveryDate: response.data.chlorineData.deliveryDate,
+        },
+      };
+      dispatch(editFarm(farmData, farmId))
     } catch (error) {
       const errors = error.response.data.errors;
       const errArr = _.filter(errors, err => {

@@ -62,8 +62,11 @@ export const loginUser = ({ email, password }) => {
         const token = TokenManager.getTokenPayload();
         dispatch(loginUserSuccess(token));
       } catch (error) {
-        // console.log(error.response);
-        dispatch(loginUserFail(error.response.data.error));
+        const err = error.response.data.error;
+        let errorMessage;
+        err ? errorMessage = err :
+          errorMessage = 'A network error has occured. Please try again'
+        dispatch(loginUserFail(errorMessage));
       };
     }
   };

@@ -1,14 +1,14 @@
 @import './variables.scss';
 
 .farmContainer {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .farmHeader {
   display: flex;
   border-bottom: 1px solid $color-grey;
   justify-content: space-between;
-  
+  padding-bottom: 0.5rem;
 
   &__title {
     display: flex;
