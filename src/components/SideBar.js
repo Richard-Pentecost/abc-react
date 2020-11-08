@@ -46,8 +46,6 @@ class SideBar extends Component {
   }
 
   render() {
-    // console.log(this.state.sortValue)
-    // console.log(this.props.history)
     return (
       <div className='sideBar'>
         <div className='sideBar__sort'>

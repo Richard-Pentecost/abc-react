@@ -67,7 +67,8 @@ export const initData = (id, search = '') => {
   return async dispatch => {
     try {
       dispatch(fetchDataStart())
-      const response = await axios.get(`${URL}/${id}/data/${search}`);
+      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+      const response = await axios.get(`${URL}/${id}/data/${search}`, axiosHeaders);
       dispatch(fetchDataSuccess(response.data));
     } catch (error) {
       dispatch(fetchDataFail(error));

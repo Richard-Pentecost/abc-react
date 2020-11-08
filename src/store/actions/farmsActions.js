@@ -72,7 +72,8 @@ export const initFarms = (search = '') => {
   return async (dispatch) => {
     try {
       dispatch(fetchFarmsStart());
-      const response = await axios.get(`${URL}/${search}`);
+      const axiosHeaders = { headers: { Authorization: TokenManager.getToken() }};
+      const response = await axios.get(`${URL}/${search}`, axiosHeaders);
       dispatch(fetchFarmsSuccess(response.data));
     } catch (error) {
       dispatch(fetchFarmsFail(error));
