@@ -4,7 +4,8 @@ import { editFarm } from './farmsActions';
 import _ from 'lodash';
 import TokenManager from '../../utils/token-manager';
 
-const URL = 'https://abc-app-api.herokuapp.com/farms';
+// const URL = 'https://abc-app-api.herokuapp.com/farms';
+const URL = 'http://localhost:3000/farms';
 
 export const dataInputChange = ({ prop, value}) => {
   return {

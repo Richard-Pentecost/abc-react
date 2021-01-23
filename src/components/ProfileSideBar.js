@@ -31,6 +31,11 @@ const ProfileSideBar = props => (
               <span className='profileSideBarLink__text'>Users</span>
             </NavLink>
           </div>
+          <div className='profileSideBarLink'>
+            <NavLink to= '/settings/farms' className='profileSideBarLink__link'>
+              <span className='profileSideBarLink__text'>Farms</span>
+            </NavLink>
+          </div>
         </>
       ) : null
     }

@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 import TokenManager from '../../utils/token-manager';
 import { errorHandler } from '../../utils/api-errors';
 
-const URL = 'https://abc-app-api.herokuapp.com/users';
+// const URL = 'https://abc-app-api.herokuapp.com/users';
+const URL = 'http://localhost:3000/users';
 
 const fetchUsersSuccess = res => {
   return {

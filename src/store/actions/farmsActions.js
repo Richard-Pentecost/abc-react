@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 import TokenManager from '../../utils/token-manager';
 import { errorHandler } from '../../utils/api-errors';
 
-const URL = 'https://abc-app-api.herokuapp.com/farms';
+// const URL = 'https://abc-app-api.herokuapp.com/farms';
+const URL = 'http://localhost:3000/farms';
 
 export const farmInputChange = ({ prop, value }) => {
   return {

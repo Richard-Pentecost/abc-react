@@ -8,6 +8,7 @@ import Profile from './Profile';
 import CreateUser from './CreateUser';
 import Users from './Users';
 import Spinner from './Spinner';
+import FarmList from './FarmList';
 import * as actions from '../store/actions';
 import '../style/ProfilePage.scss';
 
@@ -16,11 +17,13 @@ class ProfilePage extends Component {
   componentDidMount() {
     this.props.onFetchUser(this.props.id);
     this.props.onInitUsers();
+    this.props.onInitFarms();
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user && prevProps.user) {
       this.props.onInitUsers();
+      this.props.onInitFarms();
     };
   };
 
@@ -43,6 +46,7 @@ class ProfilePage extends Component {
                 <Route path={`${path}/security`} component={ChangePassword} />
                 <AdminRoute path={`${path}/create-user`} component={CreateUser} isAdmin={isAdmin} />
                 <AdminRoute path={`${path}/users`} component={Users} isAdmin={isAdmin} />
+                <AdminRoute path={`${path}/farms`} component={FarmList} isAdmin={isAdmin} />
                 <Redirect to={`${path}/profile`} />
               </Switch>
           </div> 
@@ -71,6 +75,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onInitUsers: () => dispatch(actions.initUsers()),
     onFetchUser: id => dispatch(actions.fetchUser(id)),
+    onInitFarms: () => dispatch(actions.initFarms()),
   };
 };
 

@@ -70,7 +70,7 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
         >
           Edit Farm Details
         </Link>
-        {
+        {/*
           isAdmin ? (
             <AppButton 
               handleClick={event => onDelete(event)} 
@@ -79,7 +79,7 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
               classes='small red'
             />
           ) : null
-        }
+          */}
       </div>
     </div>
   );

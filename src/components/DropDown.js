@@ -21,6 +21,9 @@ const DropDown = ({ hideDropDown, onLogout, isAdmin }) => {
             <div className='dropdown__item' onClick={hideDropDown}>
               <Link to='/settings/users' className='dropdown__link'>Users</Link>
             </div>
+            <div className='dropdown__item' onClick={hideDropDown}>
+              <Link to='/settings/farms' className='dropdown__link'>Farms</Link>
+            </div>
           </> 
         ) : null
       }

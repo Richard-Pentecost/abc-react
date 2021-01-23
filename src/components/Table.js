@@ -4,7 +4,7 @@ import '../style/Table.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Table = ({ data, tableHeadings, isAdmin, deleteHandler, clickHandler, farmFlag }) => {
-
+  
   const headings = tableHeadings.map((heading, index) => (
     <th key={index} className='tableTitle__style'>{heading}</th>
   ));
