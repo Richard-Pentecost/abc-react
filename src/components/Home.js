@@ -3,16 +3,11 @@ import '../style/Home.scss';
 import FarmCard from './FarmCard';
 import SideBar from './SideBar';
 import Spinner from './Spinner';
-import Modal from './Modal';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions';
 import qs from 'qs';
 
 class Home extends Component {
-  state = { 
-    showModal: false,
-    selectedId: '', 
-  };
 
   componentDidMount() {
     const { search } = this.props.location;
@@ -48,25 +43,9 @@ class Home extends Component {
   handleClick = id => {
     this.props.history.push(`/farms/${id}`);
   };
-  
-  openModal = id => {
-    this.setState({ showModal: true, selectedId: id });
-  };
-
-  hideModal = () => {
-    this.setState({ showModal: false, selectedId: '' });
-  };
-
-  handleDelete = () => {
-    this.props.onDeleteFarm(this.state.selectedId);
-    this.setState({
-      showModal: false,
-      selectedId: '',
-    });
-  }
 
   render() {
-    const { farms, loading, error, errorMessage, isAdmin } = this.props;
+    const { farms, loading, error, errorMessage } = this.props;
     let farmList;
     if (farms) {
       farmList = farms.map(farm => {
@@ -74,25 +53,11 @@ class Home extends Component {
           <div className='farmList__card' key={farm._id} >
             <FarmCard 
               farm={farm} 
-              isAdmin={isAdmin}
               clickHandler={() => this.handleClick(farm._id)} 
-              deleteHandler={() => this.openModal(farm._id)}
             />
           </div>
         );
       });
-    };
-
-    let modal = null;
-    if (this.state.showModal) {
-      modal = (
-        <Modal 
-          displayText='Deleting this farm will permanently remove all data associated with this farm.
-          Do you want to continue?'
-          deleteHandler={this.handleDelete}
-          cancelHandler={this.hideModal}
-        />
-      );
     };
 
     return (
@@ -103,7 +68,6 @@ class Home extends Component {
         <div className='farmList'>
           { error ? <div className='error'>{errorMessage.message}</div> :  null}
           { loading ? <Spinner /> : farmList }
-          {modal}
         </div>
       </div>
     );
@@ -111,19 +75,18 @@ class Home extends Component {
 };
 
 const mapStateToProps = state => {
-  const { farms, auth } = state;
+  const { farms } = state;
   return {
     farms: farms.farms,
     loading: farms.loading,
     error: farms.error,
     errorMessage: farms.errorMessage,
-    isAdmin: auth.token.permissionLevel === 'admin',
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onInitFarms: (search) => dispatch(actions.initFarms(search)),
+    onInitFarms: (search) => dispatch(actions.initActiveFarms(search)),
     onDeleteFarm: (id) => dispatch(actions.deleteFarm(id)),
   };
 };

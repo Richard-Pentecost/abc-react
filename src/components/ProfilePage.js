@@ -67,7 +67,7 @@ const mapStateToProps = state => {
     id: state.auth.token.id,
     isAdmin: state.auth.token.permissionLevel === 'admin',
     user: state.users.currentUser,
-    loading: state.users.loading,
+    loading: state.users.loading || state.farms.loading,
   };
 };
 

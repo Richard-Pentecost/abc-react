@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/AppButton.scss';
 
 const AppButton = ({ handleClick, text, icon, classes, hide, loading }) => {
+  
   let additionalClass;
   switch (classes) {
     case 'small red':
@@ -10,6 +11,12 @@ const AppButton = ({ handleClick, text, icon, classes, hide, loading }) => {
       break;
     case 'medium red':
       additionalClass = 'appBtn__medium appBtn__red';
+      break;
+    case 'disable':
+      additionalClass = 'appBtn__small appBtn__disable';
+      break;
+    case 'enable': 
+      additionalClass = 'appBtn__small appBtn__enable';
       break;
     default:
       additionalClass = 'appBtn__medium appBtn__green';

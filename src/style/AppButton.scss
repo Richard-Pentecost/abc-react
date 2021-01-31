@@ -60,6 +60,28 @@
     }
   }
 
+  &__disable {
+    color: $color-red-disable;
+    border: 1px solid $color-red-disable;
+    opacity: 0.7;
+    width: 7rem;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__enable {
+    color: $color-green-enable;
+    border: 1px solid $color-green-enable;
+    opacity: 0.7;
+    width: 7rem;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &__hide {
     @media only screen and (max-width: $bp-smallest) {
       display: none !important;

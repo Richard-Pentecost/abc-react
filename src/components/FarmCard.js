@@ -1,16 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import AppButton from './AppButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../style/FarmCard.scss';
 
-const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
-  
-  const onDelete = (event) => {
-    event.stopPropagation();
-    deleteHandler();
-  };
+const FarmCard = ({ farm, clickHandler }) => {
 
   return (
     <div className='farmCard' onClick={clickHandler}>
@@ -70,16 +64,6 @@ const FarmCard = ({ farm, isAdmin, clickHandler, deleteHandler }) => {
         >
           Edit Farm Details
         </Link>
-        {/*
-          isAdmin ? (
-            <AppButton 
-              handleClick={event => onDelete(event)} 
-              text='Delete'
-              icon={[ 'far', 'trash-alt' ]}
-              classes='small red'
-            />
-          ) : null
-          */}
       </div>
     </div>
   );

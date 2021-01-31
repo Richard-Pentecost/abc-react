@@ -23,15 +23,6 @@
   
   &__sidebar {
     width: 100%;
-    // border: 1px solid black;
-
-    @media only screen and (min-width: $bp-small) {
-      
-    }
-
-    @media only screen and (min-width: $bp-smallest) {
-
-    }
     
     @media only screen and (min-width: $bp-medium) {
       width: 27rem;
@@ -46,7 +37,6 @@
 
   &__section {
     flex: 1;
-    // border: 1px solid black;
   }
 }
 

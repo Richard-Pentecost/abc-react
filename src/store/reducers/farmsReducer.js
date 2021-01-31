@@ -33,6 +33,31 @@ const fetchFarmsFail = (state, action) => {
   };
 };
 
+const fetchActiveFarmsStart = state => {
+  return {
+    ...state,
+    loading: true,
+    error: false,
+    errorMessage: '',
+  }
+}
+const fetchActiveFarmsSuccess = (state, action) => {
+  return {
+    ...state,
+    farms: action.payload,
+    loading: false,
+  };
+};
+
+const fetchActiveFarmsFail = (state, action) => {
+  return { 
+    ...state,
+    loading: false,
+    error: true,
+    errorMessage: action.payload,
+  };
+};
+
 const addFarmStart = state => {
   return {
     ...state,
@@ -80,6 +105,9 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.FETCH_FARMS_START: return fetchFarmsStart(state);
     case actionTypes.FETCH_FARMS_SUCCESS: return fetchFarmsSuccess(state, action);
     case actionTypes.FETCH_FARMS_FAIL: return fetchFarmsFail(state, action);
+    case actionTypes.FETCH_ACTIVE_FARMS_START: return fetchActiveFarmsStart(state);
+    case actionTypes.FETCH_ACTIVE_FARMS_SUCCESS: return fetchActiveFarmsSuccess(state, action);
+    case actionTypes.FETCH_ACTIVE_FARMS_FAIL: return fetchActiveFarmsFail(state, action);
     case actionTypes.ADD_FARM_START: return addFarmStart(state);
     case actionTypes.ADD_FARM_SUCCESS: return addFarmSuccess(state);
     case actionTypes.ADD_FARM_FAIL: return addFarmFail(state, action);
